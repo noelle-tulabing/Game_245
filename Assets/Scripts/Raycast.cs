@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Raycast : MonoBehaviour, IClickable
+public class Raycast : MonoBehaviour
 {
 	Camera mainCamera;
     public LayerMask clickable;
+	public TestItem item;
+
     
 	void Start()
     {
@@ -28,12 +30,8 @@ public class Raycast : MonoBehaviour, IClickable
             {
 				GameObject validClick = hit.transform.gameObject;
                 Debug.Log(validClick.transform.name); 
-                //OnClick(validClick); 
+                item.OnClick(); 
             }
         }
-    }
-	
-	public void OnClick(GameObject NULL)
-	{
     }
 }

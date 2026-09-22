@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject camera;
     public float speed = 100f;
     private Quaternion targetRotation;
 

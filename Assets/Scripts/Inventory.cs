@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject InventorySlot;
+    //private GameObject InventorySlot;
     public GameObject[] inventory = new GameObject[9];
 
     public GameObject[] getInventory()
@@ -34,6 +34,10 @@ public class Inventory : MonoBehaviour
             return;
         }
         print("Picked up: " + add.transform.name);
+		for (int slot = 0; slot < inventory.Length; slot++)
+        {
+           	Debug.Log("player inventory at index " + slot + inventory[slot]);
+        }
     }
     
 }
