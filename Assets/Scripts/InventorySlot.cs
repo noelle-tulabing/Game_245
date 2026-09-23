@@ -1,21 +1,42 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
+// collectable class ?
+public class InventorySlot : MonoBehaviour, IClickable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public int index;
+    public Inventory inventory;
 
-    // Update is called once per frame
-    void Update()
+    private bool selected;
+
+    void Start()
     {
         
     }
 
     public void HighlightInventorySlot()
     {
-        
+        if (!selected) 
+        {
+            // highlight inventory slot
+        }
+        else // already selected & clicked again
+        {
+            // return to default image
+        }
+        selected = !selected;
+    }
+
+    public void OnClick()
+    {
+        HighlightInventorySlot();
+        if (inventory.getItem(index) != null)
+        {
+           Debug.Log(inventory.getItem(index) + " at index " + index);
+        }
+        else
+        {
+            Debug.Log("No item found at index " + index);
+        }
     }
 }

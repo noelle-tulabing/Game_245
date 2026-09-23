@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Raycast : MonoBehaviour
 {
-	Camera mainCamera;
+	public Camera mainCamera;
     public LayerMask clickable;
-	public TestItem item;
-
     
 	void Start()
     {
@@ -29,8 +27,7 @@ public class Raycast : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100, clickable))
             {
 				GameObject validClick = hit.transform.gameObject;
-                Debug.Log(validClick.transform.name); 
-                item.OnClick(); 
+                validClick.GetComponent<IClickable>().OnClick();
             }
         }
     }

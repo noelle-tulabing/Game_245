@@ -2,8 +2,14 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    //private GameObject InventorySlot;
+    //private InventorySlot[] inventory = new InventorySlot[9];
     public GameObject[] inventory = new GameObject[9];
+	private bool itemSelected;
+
+	void Start()
+	{
+		itemSelected = false;
+	}
 
     public GameObject[] getInventory()
     {
@@ -34,10 +40,6 @@ public class Inventory : MonoBehaviour
             return;
         }
         print("Picked up: " + add.transform.name);
-		for (int slot = 0; slot < inventory.Length; slot++)
-        {
-           	Debug.Log("player inventory at index " + slot + inventory[slot]);
-        }
     }
     
 }
