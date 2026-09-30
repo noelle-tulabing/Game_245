@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// collectable class ?
 public class InventorySlot : MonoBehaviour, IClickable
 {
     public int index;
