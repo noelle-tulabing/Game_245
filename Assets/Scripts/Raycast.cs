@@ -26,8 +26,8 @@ public class Raycast : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 100, clickable))
             {
-				GameObject validClick = hit.transform.gameObject;
-                validClick.GetComponent<IClickable>().OnClick();
+                IClickable validClick = hit.transform.gameObject.GetComponent<IClickable>();
+                validClick.OnClick();
             }
         }
     }

@@ -6,28 +6,28 @@ public class CameraController : MonoBehaviour
     private float speed = 100f;
     private Quaternion targetRotation;
     Coroutine rotateRoutine;
-    private LightController lightController;
+    //private LightController lightController;
 
     void Start()
     {
 	    transform.position = new Vector3(0f, 1f, 0f);
 	    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 	    targetRotation = transform.rotation;
-	    lightController = FindObjectOfType<LightController>();
+	    //lightController = FindObjectOfType<LightController>();
     }
 
     public void rotateCameraLeft()
     {
 	    targetRotation *= Quaternion.Euler(0, -90f, 0);
 	    StartRotation();
-	    lightController.rotateLightLeft();
+	    //lightController.rotateLightLeft();
     }
 
     public void rotateCameraRight()
     {
 	    targetRotation *= Quaternion.Euler(0, 90f, 0);
 	    StartRotation();
-	    lightController.rotateLightRight();
+	    //lightController.rotateLightRight();
     }
 
     void StartRotation()

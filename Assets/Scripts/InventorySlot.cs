@@ -1,37 +1,68 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IClickable
 {
-    public int index;
-    public Inventory inventory;
-
-    private bool selected;
+    [SerializeField] private int index;
+    //[SerializeField] private Inventory inventory;
+    [SerializeField] private Collectable item;
+    
+    [SerializeField] bool selected;
+    public Image defaultImage; // Drag your UI Image here
+    public Sprite defaultSprite; // First image
+    public Sprite highlightSprite; // Second image
 
     void Start()
     {
-        
+        //defaultImage = GetComponent<Image>();
+        defaultImage.sprite = defaultSprite;
+        selected = false;
+    }
+    public void setIndex(int index)
+    {
+        this.index = index;
+    }
+    public void holdItem(Collectable collectable)
+    {
+        item = collectable;
+    }
+    public Collectable getItem()
+    {
+        return item;
     }
 
+    public bool isSelected()
+    {
+        return selected;
+    }
     public void HighlightInventorySlot()
     {
         if (!selected) 
         {
-            // highlight inventory slot
+            defaultImage.sprite = highlightSprite;
         }
-        else // already selected & clicked again
+        else 
         {
-            // return to default image
+            defaultImage.sprite = defaultSprite;
         }
         selected = !selected;
     }
 
     public void OnClick()
     {
-        HighlightInventorySlot();
-        if (inventory.getItem(index) != null)
+        if (Inventory.checkSelected() == -1 || Inventory.checkSelected() == index)
         {
-           Debug.Log(inventory.getItem(index) + " at index " + index);
+            HighlightInventorySlot();
+        }
+        else
+        {
+            Inventory.deselect();
+            HighlightInventorySlot();
+        }
+        if (Inventory.getItem(index) != null)
+        {
+           Debug.Log(item.gameObject.name + " at index " + index);
         }
         else
         {
