@@ -288,5 +288,5 @@ MonoBehaviour:
   item: {fileID: 0}
   selected: 0
   defaultImage: {fileID: 8120590900397612138}
-  defaultSprite: {fileID: 987556721, guid: ebaaeaa18fcf74b9d8f76abf5ad32255, type: 3}
-  highlightSprite: {fileID: -1814201687, guid: ebaaeaa18fcf74b9d8f76abf5ad32255, type: 3}
+  defaultSprite: {fileID: 799181871, guid: ebaaeaa18fcf74b9d8f76abf5ad32255, type: 3}
+  highlightSprite: {fileID: -1767809277, guid: ebaaeaa18fcf74b9d8f76abf5ad32255, type: 3}

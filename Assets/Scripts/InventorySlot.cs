@@ -5,18 +5,16 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour, IClickable
 {
     [SerializeField] private int index;
-    //[SerializeField] private Inventory inventory;
     [SerializeField] private Collectable item;
     
     [SerializeField] bool selected;
-    public Image defaultImage; // Drag your UI Image here
-    public Sprite defaultSprite; // First image
-    public Sprite highlightSprite; // Second image
+    public Image defaultImage;
+    public Sprite defaultSprite;
+    public Sprite highlightSprite;
 
     void Start()
     {
-        //defaultImage = GetComponent<Image>();
-        defaultImage.sprite = defaultSprite;
+        //defaultImage.sprite = defaultSprite;
         selected = false;
     }
     public void setIndex(int index)
@@ -36,6 +34,7 @@ public class InventorySlot : MonoBehaviour, IClickable
     {
         return selected;
     }
+    
     public void HighlightInventorySlot()
     {
         if (!selected) 

@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-	    transform.position = new Vector3(0f, 1f, 0f);
+	    transform.position = new Vector3(0f, 2f, -2f);
 	    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 	    targetRotation = transform.rotation;
 	    //lightController = FindObjectOfType<LightController>();

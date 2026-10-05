@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private InventorySlot inventorySlot;
+    [SerializeField] public InventorySlot inventorySlot;
     public static InventorySlot[] inventory = new InventorySlot[9];
-    [SerializeField] private static int firstOpenSlot;
+    private static int firstOpenSlot;
 	private static int slotSelected;
     public Transform InventoryTransfrom;
 
@@ -12,7 +12,6 @@ public class Inventory : MonoBehaviour
 	{
         for (int i = 0; i < inventory.Length; i++)
         {
-            Debug.Log("creating empty slot " + i);
             float xPos = 317f + (i*160f);
             Vector3 spawnPosition = new Vector3(xPos, 80f, 0f);
             inventory[i] = Instantiate(inventorySlot, spawnPosition, Quaternion.identity, InventoryTransfrom);
@@ -29,7 +28,6 @@ public class Inventory : MonoBehaviour
 	
 	public static Collectable getItem(int index)
     {
-        Debug.Log(index);
 		return inventory[index].getItem();
 	}
 
@@ -55,7 +53,6 @@ public class Inventory : MonoBehaviour
                     firstOpenSlot = -1;
                 }
             }
-
             return firstOpenSlot;
         }
     }
@@ -66,20 +63,16 @@ public class Inventory : MonoBehaviour
         {
             if (inventory[i].isSelected())
             {
+                slotSelected = i;
                 return i;
             }
         }
+        slotSelected = -1;
         return -1;
     }
 
     public static void deselect()
     {
-        for (int i = 0; i < inventory.Length; i++)
-        {
-            if (inventory[i].isSelected())
-            {
-                inventory[i].HighlightInventorySlot();
-            }
-        }
+        inventory[slotSelected].HighlightInventorySlot();
     }
 }
