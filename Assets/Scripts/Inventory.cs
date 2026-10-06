@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] public InventorySlot inventorySlot;
+    [SerializeField] private InventorySlot inventorySlot;
     public static InventorySlot[] inventory = new InventorySlot[9];
     private static int firstOpenSlot;
 	private static int slotSelected;
@@ -37,24 +37,21 @@ public class Inventory : MonoBehaviour
         {
             return -1;
         }
-        else
+        inventory[firstOpenSlot].holdItem(add);
+    
+        for (int i = 0; i < inventory.Length; i++)
         {
-            inventory[firstOpenSlot].holdItem(add);
-        
-            for (int i = 0; i < inventory.Length; i++)
+            if (inventory[i].getItem() == null)
             {
-                if (inventory[i].getItem() == null)
-                {
-                    firstOpenSlot = i;
-                    break;
-                }
-                else
-                {
-                    firstOpenSlot = -1;
-                }
+                firstOpenSlot = i;
+                break;
             }
-            return firstOpenSlot;
+            else
+            {
+                firstOpenSlot = -1;
+            }
         }
+        return firstOpenSlot;
     }
 
     public static int checkSelected()
