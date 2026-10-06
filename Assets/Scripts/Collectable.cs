@@ -11,6 +11,5 @@ public class Collectable : MonoBehaviour, IClickable
     public void OnClick()
     {
         Inventory.AddItemToEmptyInventorySlot(this);
-        gameObject.SetActive(false);
     }
 }

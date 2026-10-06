@@ -38,6 +38,7 @@ public class Inventory : MonoBehaviour
             return -1;
         }
         inventory[firstOpenSlot].holdItem(add);
+        add.gameObject.SetActive(false);
     
         for (int i = 0; i < inventory.Length; i++)
         {
@@ -46,10 +47,7 @@ public class Inventory : MonoBehaviour
                 firstOpenSlot = i;
                 break;
             }
-            else
-            {
-                firstOpenSlot = -1;
-            }
+            firstOpenSlot = -1;
         }
         return firstOpenSlot;
     }
