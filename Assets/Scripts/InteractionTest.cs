@@ -8,6 +8,7 @@ public class InteractionTest : MonoBehaviour, IClickable
     public void OnClick()
     {
         print("door has been clicked");
+        
         player.OnClick();
     }
 }
