@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     private Vector3 startingPosition = new Vector3(0f, 2f, -2f);
     private Vector3 targetPosition;
     
+    //private bool zoomedIn = false;
     public static Quaternion northRoom = Quaternion.Euler(0f, 0f, 0f);
     private Vector3 northRoomZoom = new Vector3(0f, 2f, 3f);
     public static Quaternion eastRoom = Quaternion.Euler(0f, 90f, 0f);
@@ -101,12 +102,58 @@ public class CameraController : MonoBehaviour
 
     public void zoomOutCamera()
     {
-	    UI.rotateButtons();
-	    targetPosition = new Vector3(0f, 2f, -2f);
-	    targetRotation = rooms[currentRoom];
+	    bool fullyZoomedOut = false;
+	    Debug.Log("zoom out button was pressed");
+	    if (transform.position == northRoomZoom || transform.position == eastRoomZoom ||
+	        transform.position == southRoomZoom || transform.position == westRoomZoom)
+	    {
+		    targetPosition = startingPosition;
+		   fullyZoomedOut = true;
+	    }
+	    else
+	    {
+		    // find closest room (therefore current room) and swap to zoomed in image of room 
+		    float distanceFromNorthRoom = Vector3.Distance(transform.position, northRoomZoom);
+		    float distanceFromEastRoom = Vector3.Distance(transform.position, eastRoomZoom);
+		    float distanceFromSouthRoom = Vector3.Distance(transform.position, southRoomZoom);
+		    float distanceFromWestRoom = Vector3.Distance(transform.position, westRoomZoom);
+		    if (distanceFromNorthRoom < distanceFromEastRoom && distanceFromNorthRoom < distanceFromSouthRoom &&
+		        distanceFromNorthRoom < distanceFromWestRoom)
+		    {
+			    targetPosition = northRoomZoom;
+			    targetRotation = northRoom;
+		    }
+		    else if (distanceFromEastRoom < distanceFromNorthRoom && distanceFromEastRoom < distanceFromSouthRoom &&
+		             distanceFromEastRoom < distanceFromWestRoom)
+		    {
+			    targetPosition = eastRoomZoom;
+			    targetRotation = eastRoom;
+		    }
+		    else if (distanceFromSouthRoom < distanceFromNorthRoom && distanceFromSouthRoom < distanceFromEastRoom &&
+		             distanceFromSouthRoom < distanceFromWestRoom)
+		    {
+			    targetPosition = southRoomZoom;
+			    targetRotation = southRoom;
+		    }
+		    else if(distanceFromWestRoom < distanceFromNorthRoom && distanceFromWestRoom < distanceFromEastRoom && distanceFromWestRoom < distanceFromSouthRoom)
+		    {
+			    targetPosition = westRoomZoom;
+			    targetRotation = westRoom;
+		    }
+		    else
+		    {
+			    print("error: cannot find closest room");
+		    }
+	    }
 	    StartZoom();
 	    StartRotation();
+	    if (fullyZoomedOut)
+	    {
+		    UI.rotateButtons();
+	    }
+	    Debug.Log("camera has finished zooming out");
     }
+
     public void zoomCameraIn()
     {
 	    if (transform.position != new Vector3(0f, 2f, -2f))
