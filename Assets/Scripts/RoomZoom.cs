@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InteractionTest : MonoBehaviour, IClickable
+public class RoomZoom : MonoBehaviour, IClickable
 {
     public PlayerInteraction player;
     public CameraController cameraController;

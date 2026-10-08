@@ -11,7 +11,6 @@ public class CameraController : MonoBehaviour
     Coroutine zoomRoutine;
 
     public UI UI;
-    //private LightController lightController;
 
     void Start()
     {
@@ -19,21 +18,18 @@ public class CameraController : MonoBehaviour
 	    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 	    targetRotation = transform.rotation;
 	    targetPosition = transform.position;
-	    //lightController = FindObjectOfType<LightController>();
     }
 
     public void rotateCameraLeft()
     {
 	    targetRotation *= Quaternion.Euler(0, -90f, 0);
 	    StartRotation();
-	    //lightController.rotateLightLeft();
     }
 
     public void rotateCameraRight()
     {
 	    targetRotation *= Quaternion.Euler(0, 90f, 0);
 	    StartRotation();
-	    //lightController.rotateLightRight();
     }
 
     void StartRotation()
@@ -64,7 +60,7 @@ public class CameraController : MonoBehaviour
 	    targetPosition = new Vector3(0f, 2f, -2f);
 	    StartZoom();
     }
-    public void zoomCameraIn(/*thing zooming in on?*/)
+    public void zoomCameraIn()
     {
 	    if (transform.position != new Vector3(0f, 2f, -2f))
 	    {
