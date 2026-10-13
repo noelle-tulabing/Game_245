@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-
 public class CushionInteraction : MonoBehaviour, IClickable
 {
     private float speed = 5f;
@@ -18,7 +17,7 @@ public class CushionInteraction : MonoBehaviour, IClickable
        cushionUp = false;
     }
 
-    void Update()
+    void Update() // change to not be in update method
     {
         if (cameraController.getCurrentPosition() != new Vector3(-6.139999866485596f, 2.0999999046325685f, -2.700000047683716f) &&
             cushionUp)
@@ -66,5 +65,10 @@ public class CushionInteraction : MonoBehaviour, IClickable
         }
         transform.position = targetPosition; // snap to exact final value
         moveCoroutine = null;
+    }
+
+    static void moveCushionDown()
+    {
+        
     }
 }

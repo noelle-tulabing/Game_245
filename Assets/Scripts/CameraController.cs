@@ -4,7 +4,6 @@ using System.Collections;
 public class CameraController : MonoBehaviour
 {
 	// STATE MACHINE????
-	
     private float rotateSpeed = 100f;
     private float zoomSpeed = 10f;
     private Quaternion targetRotation;
@@ -12,13 +11,13 @@ public class CameraController : MonoBehaviour
     private Vector3 targetPosition;
     
     //private bool zoomedIn = false;
-    public static Quaternion northRoom = Quaternion.Euler(0f, 0f, 0f);
+    private static Quaternion northRoom = Quaternion.Euler(0f, 0f, 0f);
     private Vector3 northRoomZoom = new Vector3(0f, 2f, 3f);
-    public static Quaternion eastRoom = Quaternion.Euler(0f, 90f, 0f);
+    private static Quaternion eastRoom = Quaternion.Euler(0f, 90f, 0f);
     private Vector3 eastRoomZoom = new Vector3(5f, 2f, -2f);
-    public static Quaternion southRoom = Quaternion.Euler(0f, 180f, 0f);
+    private static Quaternion southRoom = Quaternion.Euler(0f, 180f, 0f);
     private Vector3 southRoomZoom = new Vector3(0f, 2f, -7f);
-    public static Quaternion westRoom = Quaternion.Euler(0f, 270f, 0f);
+    private static Quaternion westRoom = Quaternion.Euler(0f, 270f, 0f);
     private Vector3 westRoomZoom = new Vector3(-5f, 2f, -2f);
     
     Quaternion[] rooms = new Quaternion[]{northRoom, eastRoom, southRoom, westRoom};
@@ -211,7 +210,7 @@ public class CameraController : MonoBehaviour
 	    {
 		    return;
 	    }
-	    targetPosition = new Vector3(-6.139999866485596f, 2.0999999046325685f, -2.700000047683716f);
+	    targetPosition = new Vector3(-6.14f, 2.1f, -2.7f);
 	    targetRotation = Quaternion.Euler(40.9f, 240.1f, 0f);
 	    rotateSpeed = 10f;
 	    StartZoom();
