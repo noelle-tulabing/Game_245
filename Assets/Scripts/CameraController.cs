@@ -1,220 +1,133 @@
 using UnityEngine;
-using System.Collections;
+using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
-	// STATE MACHINE????
-    private float rotateSpeed = 100f;
-    private float zoomSpeed = 10f;
-    private Quaternion targetRotation;
-    private Vector3 startingPosition = new Vector3(0f, 2f, -2f);
-    private Vector3 targetPosition;
-    
-    //private bool zoomedIn = false;
-    private static Quaternion northRoom = Quaternion.Euler(0f, 0f, 0f);
-    private Vector3 northRoomZoom = new Vector3(0f, 2f, 3f);
-    private static Quaternion eastRoom = Quaternion.Euler(0f, 90f, 0f);
-    private Vector3 eastRoomZoom = new Vector3(5f, 2f, -2f);
-    private static Quaternion southRoom = Quaternion.Euler(0f, 180f, 0f);
-    private Vector3 southRoomZoom = new Vector3(0f, 2f, -7f);
-    private static Quaternion westRoom = Quaternion.Euler(0f, 270f, 0f);
-    private Vector3 westRoomZoom = new Vector3(-5f, 2f, -2f);
-    
-    Quaternion[] rooms = new Quaternion[]{northRoom, eastRoom, southRoom, westRoom};
-    int currentRoom;
-    
-    
-    Coroutine rotateRoutine;
-    Coroutine zoomRoutine;
+    private const float RotateSpeed = 100f;  // degrees per second
+    private const float ZoomSpeed = 10f;     // units per second
+
+    private readonly Vector3 startingPosition = new Vector3(0f, 2f, -2f);
+
+    // Index order must match: 0 = north, 1 = east, 2 = south, 3 = west
+    private readonly Quaternion[] rooms =
+    {
+        Quaternion.Euler(0f, 0f, 0f),
+        Quaternion.Euler(0f, 90f, 0f),
+        Quaternion.Euler(0f, 180f, 0f),
+        Quaternion.Euler(0f, 270f, 0f)
+    };
+
+    private readonly Vector3[] roomZoomPositions =
+    {
+        new Vector3(0f, 2f, 3f),
+        new Vector3(5f, 2f, -2f),
+        new Vector3(0f, 2f, -7f),
+        new Vector3(-5f, 2f, -2f)
+    };
+
+    private int currentRoom;
+    private Tween moveTween;
+    private Tween rotateTween;
+
     public UI UI;
 
     void Start()
     {
-	    transform.position = startingPosition;
-	    transform.rotation = northRoom;
-	    currentRoom = 0;
-	    targetRotation = transform.rotation;
-	    targetPosition = transform.position;
+        transform.position = startingPosition;
+        transform.rotation = rooms[0];
+        currentRoom = 0;
     }
 
-    public Quaternion getCurrentRoom()
-    {
-	    return rooms[currentRoom];
-    }
+    public Quaternion getCurrentRoom() => rooms[currentRoom];
+    public Vector3 getCurrentPosition() => transform.position;
 
-    public Vector3 getCurrentPosition()
-    {
-	    return this.transform.position;
-    }
+    // ---------- Rotation ----------
 
     public void rotateCameraLeft()
     {
-	    //targetRotation *= Quaternion.Euler(0, -90f, 0);
-	    if (currentRoom == 0)
-	    {
-		    currentRoom = 3;
-	    }
-	    else
-	    {
-		    currentRoom--;
-	    }
-	    targetRotation = rooms[currentRoom];
-	    StartRotation();
+        currentRoom = (currentRoom + 3) % 4;   // -1 with wraparound
+        RotateTo(rooms[currentRoom], RotateSpeed);
     }
 
     public void rotateCameraRight()
     {
-	    //targetRotation *= Quaternion.Euler(0, 90f, 0);
-	    if (currentRoom == 3)
-	    {
-		    currentRoom = 0;
-	    }
-	    else
-	    {
-		    currentRoom++;
-	    }
-	    targetRotation = rooms[currentRoom];
-	    StartRotation();
+        currentRoom = (currentRoom + 1) % 4;
+        RotateTo(rooms[currentRoom], RotateSpeed);
     }
 
-    void StartRotation()
+    // ---------- Zoom ----------
+
+    public void zoomCameraIn()
     {
-	    // Stop any rotation already in progress so two coroutines don't fight
-	    if (rotateRoutine != null)
-		    StopCoroutine(rotateRoutine);
+        if (transform.position != startingPosition)
+            return;
 
-	    rotateRoutine = StartCoroutine(rotateCamera());
-    }
-
-    IEnumerator rotateCamera()
-    {
-	    // Keep rotating until we've reached the target
-	    while (Quaternion.Angle(transform.rotation, targetRotation) > 0.01f)
-	    {
-		    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-		    yield return null; // wait one frame
-	    }
-
-	    transform.rotation = targetRotation; // snap to exact final value
-	    rotateRoutine = null;
+        UI.zoomButton();
+        MoveTo(roomZoomPositions[currentRoom], ZoomSpeed);
     }
 
     public void zoomOutCamera()
     {
-	    bool fullyZoomedOut = false;
-	    Debug.Log("zoom out button was pressed");
-	    if (transform.position == northRoomZoom || transform.position == eastRoomZoom ||
-	        transform.position == southRoomZoom || transform.position == westRoomZoom)
-	    {
-		    targetPosition = startingPosition;
-		   fullyZoomedOut = true;
-	    }
-	    else
-	    {
-		    // find closest room (therefore current room) and swap to zoomed in image of room 
-		    float distanceFromNorthRoom = Vector3.Distance(transform.position, northRoomZoom);
-		    float distanceFromEastRoom = Vector3.Distance(transform.position, eastRoomZoom);
-		    float distanceFromSouthRoom = Vector3.Distance(transform.position, southRoomZoom);
-		    float distanceFromWestRoom = Vector3.Distance(transform.position, westRoomZoom);
-		    if (distanceFromNorthRoom < distanceFromEastRoom && distanceFromNorthRoom < distanceFromSouthRoom &&
-		        distanceFromNorthRoom < distanceFromWestRoom)
-		    {
-			    targetPosition = northRoomZoom;
-			    targetRotation = northRoom;
-		    }
-		    else if (distanceFromEastRoom < distanceFromNorthRoom && distanceFromEastRoom < distanceFromSouthRoom &&
-		             distanceFromEastRoom < distanceFromWestRoom)
-		    {
-			    targetPosition = eastRoomZoom;
-			    targetRotation = eastRoom;
-		    }
-		    else if (distanceFromSouthRoom < distanceFromNorthRoom && distanceFromSouthRoom < distanceFromEastRoom &&
-		             distanceFromSouthRoom < distanceFromWestRoom)
-		    {
-			    targetPosition = southRoomZoom;
-			    targetRotation = southRoom;
-		    }
-		    else if(distanceFromWestRoom < distanceFromNorthRoom && distanceFromWestRoom < distanceFromEastRoom && distanceFromWestRoom < distanceFromSouthRoom)
-		    {
-			    targetPosition = westRoomZoom;
-			    targetRotation = westRoom;
-		    }
-		    else
-		    {
-			    print("error: cannot find closest room");
-		    }
-	    }
-	    StartZoom();
-	    StartRotation();
-	    if (fullyZoomedOut)
-	    {
-		    UI.rotateButtons();
-	    }
-	    Debug.Log("camera has finished zooming out");
+        if (IsAtRoomZoomPosition())
+        {
+            // Zoomed in on a room -> back out to the overview
+            MoveTo(startingPosition, ZoomSpeed);
+            RotateTo(rooms[currentRoom], RotateSpeed);
+            UI.rotateButtons();
+        }
+        else
+        {
+            // E.g. under the cushion -> back to this room's zoomed-in view
+            MoveTo(roomZoomPositions[currentRoom], ZoomSpeed);
+            RotateTo(rooms[currentRoom], RotateSpeed);
+        }
     }
 
-    public void zoomCameraIn()
+    public void checkUnderCushion(Cushion cushionData)
     {
-	    if (transform.position != new Vector3(0f, 2f, -2f))
-	    {
-		    return;
-	    }
-	    UI.zoomButton();
-	    if (Quaternion.Angle(transform.rotation, northRoom) == 0f)
-	    {
-		    targetPosition = northRoomZoom;
-	    }
-	    else if (Quaternion.Angle(transform.rotation, eastRoom) == 0f)
-	    {
-		    targetPosition = eastRoomZoom;
-	    }
-	    else if(Quaternion.Angle(transform.rotation, southRoom) == 0f) // check camera orientation
-	    {
-		    targetPosition = southRoomZoom;
-	    }
-	    else if (Quaternion.Angle(transform.rotation, westRoom) == 0f)
-	    {
-		    targetPosition = westRoomZoom;
-	    }
-	    else
-	    {
-		    print("error: not a recognized angle");
-	    }
-	    StartZoom();
-    }
-    void StartZoom()
-    {
-	    // Stop any rotation already in progress so two coroutines don't fight
-	    if (zoomRoutine != null)
-		    StopCoroutine(zoomRoutine);
+        // Only move if we're zoomed in on this cushion's room
+        if (transform.position != cushionData.cameraRoomZoom)
+            return;
 
-	    zoomRoutine = StartCoroutine(zoomCamera());
+        MoveTo(cushionData.cameraViewPosition, ZoomSpeed);
+        RotateTo(cushionData.cameraViewRotation, RotateSpeed);
     }
 
-    IEnumerator zoomCamera()
-    {
-	    // Keep rotating until we've reached the target
-	    while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
-	    {
-		    transform.position = Vector3.MoveTowards(transform.position, targetPosition, zoomSpeed * Time.deltaTime);
-		    yield return null; // wait one frame
-	    }
+    // ---------- Tween helpers ----------
 
-	    transform.position = targetPosition; // snap to exact final value
-	    zoomRoutine = null;
+    void MoveTo(Vector3 target, float unitsPerSecond)
+    {
+        moveTween?.Kill();
+
+        moveTween = transform
+            .DOMove(target, unitsPerSecond)
+            .SetSpeedBased()
+            .SetEase(Ease.Linear)
+            .SetLink(gameObject)
+            .OnComplete(() => moveTween = null);
     }
 
-    public void checkUnderCushion()
+    void RotateTo(Quaternion target, float degreesPerSecond)
     {
-	    if (transform.position != westRoomZoom) // don't move cushion unless zoomed in
-	    {
-		    return;
-	    }
-	    targetPosition = new Vector3(-6.14f, 2.1f, -2.7f);
-	    targetRotation = Quaternion.Euler(40.9f, 240.1f, 0f);
-	    rotateSpeed = 10f;
-	    StartZoom();
-	    StartRotation();
-	    rotateSpeed = 100f; // change rotate speed back to original
+        rotateTween?.Kill();
+
+        // Duration from angle keeps the speed in degrees/sec
+        float duration = Quaternion.Angle(transform.rotation, target) / degreesPerSecond;
+
+        rotateTween = transform
+            .DORotateQuaternion(target, duration)
+            .SetEase(Ease.Linear)
+            .SetLink(gameObject)
+            .OnComplete(() => rotateTween = null);
+    }
+
+    bool IsAtRoomZoomPosition()
+    {
+        foreach (Vector3 pos in roomZoomPositions)
+        {
+            if (transform.position == pos)
+                return true;
+        }
+        return false;
     }
 }

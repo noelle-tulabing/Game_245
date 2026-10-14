@@ -1,74 +1,55 @@
 using UnityEngine;
-using System.Collections;
+using DG.Tweening;
 
 public class CushionInteraction : MonoBehaviour, IClickable
 {
-    private float speed = 5f;
-    private Vector3 startingPosition = new Vector3(-7.739981174468994f, 0.8652756214141846f, -3.63797664642334f);
-    private Vector3 raisedPosition = new Vector3(-7.739981174468994f, 2.049999952316284f, -3.63797664642334f);
-    private Vector3 targetPosition;
-    private bool cushionUp;
-    
+    [SerializeField] private Cushion cushionData;
     public CameraController cameraController;
-    Coroutine moveCoroutine;
+    private float speed = 5f;
+    private Tween moveTween;
+    private bool cushionUp;
+
     void Start()
     {
-       transform.position = startingPosition;
-       cushionUp = false;
+        transform.position = cushionData.startingPosition;
+        cushionUp = false;
     }
 
-    void Update() // change to not be in update method
+    void Update() // still polling; see note below
     {
-        if (cameraController.getCurrentPosition() != new Vector3(-6.139999866485596f, 2.0999999046325685f, -2.700000047683716f) &&
-            cushionUp)
+        if (cushionUp &&
+            cameraController.getCurrentPosition() != cushionData.cameraViewPosition)
         {
-            targetPosition = startingPosition;
-            StartMovement();
+            MoveTo(cushionData.startingPosition);
             cushionUp = false;
         }
     }
+
     public void OnClick()
     {
-        if (cameraController.getCurrentPosition() != new Vector3(-5f, 2f, -2f) && cameraController.getCurrentPosition() != new Vector3(-6.139999866485596f, 2.0999999046325685f, -2.700000047683716f))
+        Vector3 camPos = cameraController.getCurrentPosition();
+        if (camPos != cushionData.cameraRoomZoom &&
+            camPos != cushionData.cameraViewPosition)
         {
+            Debug.Log("cannot move cushion");
             return;
         }
-        if (cushionUp)
-        {
-            targetPosition = startingPosition;
-        }
-        else
-        {
-            targetPosition = raisedPosition;
-        }
-        StartMovement();
-        cameraController.checkUnderCushion();
+        Debug.Log("moving cushion");
+        MoveTo(cushionUp ? cushionData.startingPosition : cushionData.raisedPosition);
+        cameraController.checkUnderCushion(cushionData);
         cushionUp = !cushionUp;
+        Debug.Log("cushion done moving");
     }
 
-    void StartMovement()
+    void MoveTo(Vector3 target)
     {
-        // Stop any rotation already in progress so two coroutines don't fight
-        if (moveCoroutine != null)
-            StopCoroutine(moveCoroutine);
+        moveTween?.Kill();
 
-        moveCoroutine = StartCoroutine(moveCushion());
-    }
-    
-    IEnumerator moveCushion()
-    {
-        // Keep rotating until we've reached the target
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-            yield return null; // wait one frame
-        }
-        transform.position = targetPosition; // snap to exact final value
-        moveCoroutine = null;
-    }
-
-    static void moveCushionDown()
-    {
-        
+        moveTween = transform
+            .DOMove(target, speed)
+            .SetSpeedBased()
+            .SetEase(Ease.Linear)
+            .SetLink(gameObject)
+            .OnComplete(() => moveTween = null);
     }
 }
