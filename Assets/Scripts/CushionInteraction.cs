@@ -15,14 +15,19 @@ public class CushionInteraction : MonoBehaviour, IClickable
         cushionUp = false;
     }
 
-    void Update() // still polling; see note below
+    void Update()
     {
         if (cushionUp &&
             cameraController.getCurrentPosition() != cushionData.cameraViewPosition)
         {
-            MoveTo(cushionData.startingPosition);
-            cushionUp = false;
+            moveCushionDown();
         }
+    }
+
+    void moveCushionDown() // somehow tell cushion to move back to oringinal position when zoom out ui button pressed
+    {
+        MoveTo(cushionData.startingPosition);
+        cushionUp = false;
     }
 
     public void OnClick()
