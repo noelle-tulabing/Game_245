@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06afb4e6bb9cd421eae4744f65ccf2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  inventorySlot: {fileID: 4280597643111889785, guid: ea1bf7656404f4990be218e8be588a87, type: 3}
-  InventoryTransfrom: {fileID: 4030433540344591023}
+  inventorySlot: {fileID: -3505283887008934902, guid: d7c5b042767ee4bc296b0a14498bcdbd, type: 3}
+  InventoryTransform: {fileID: 4030433540344591023}

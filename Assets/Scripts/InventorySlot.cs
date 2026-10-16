@@ -1,20 +1,32 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IClickable
 {
-    [SerializeField] private int index;
     [SerializeField] private Collectable item;
-    
-    [SerializeField] bool selected;
+    [SerializeField] private int index;
+    [SerializeField] private bool selected;
+
     public Image defaultImage;
     public Sprite defaultSprite;
     public Sprite highlightSprite;
 
+    [SerializeField] private Image itemIcon;
+    
     void Start()
     {
-        //defaultImage.sprite = defaultSprite;
+        Image firstChildComp = null;
+        // Loop through immediate children
+        foreach (Transform child in transform)
+        {
+            firstChildComp = child.GetComponent<Image>();
+            itemIcon = firstChildComp;
+            itemIcon.enabled = false;
+            if (firstChildComp != null) 
+            {
+                break;
+            }
+        }        
         selected = false;
     }
     public void setIndex(int index)
@@ -24,10 +36,19 @@ public class InventorySlot : MonoBehaviour, IClickable
     public void holdItem(Collectable collectable)
     {
         item = collectable;
+        itemIcon.enabled = true;
+        itemIcon.sprite = collectable.getIcon();
+        
     }
     public Collectable getItem()
     {
         return item;
+    }
+
+    public void removeItem()
+    {
+        itemIcon.enabled = false;
+        item = null;
     }
 
     public bool isSelected()

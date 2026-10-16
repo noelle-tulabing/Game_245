@@ -297,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 0}
 --- !u!65 &193620432
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -598,6 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestItem
+  icon: {fileID: 0}
 --- !u!1 &286468801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2113260466169648059, guid: 2d05f538f8fbe4ff7975ba042ad51aaa, type: 3}
@@ -720,6 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 0}
 --- !u!65 &293731923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1531,6 +1534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 1386386628, guid: c73d5cd9e8f4c4a869464c7227602f5f, type: 3}
 --- !u!65 &575551395
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1839,8 +1843,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2cdd3ff461304f8ea5ca17d2d433e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CushionInteraction
-  cushionData: {fileID: 11400000, guid: 016716fd5f6fe4f7e8a2b8217978bc77, type: 2}
   cameraController: {fileID: 2018374041}
+  cushionData: {fileID: 11400000, guid: 016716fd5f6fe4f7e8a2b8217978bc77, type: 2}
 --- !u!65 &779916415
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1955,6 +1959,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7096128508686206948, guid: cf88b42ce208a42d98769298833641dc, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096128508686206948, guid: cf88b42ce208a42d98769298833641dc, type: 3}
+      propertyPath: inventorySlot
+      value: 
+      objectReference: {fileID: -3505283887008934902, guid: d7c5b042767ee4bc296b0a14498bcdbd, type: 3}
+    - target: {fileID: 7096128508686206948, guid: cf88b42ce208a42d98769298833641dc, type: 3}
+      propertyPath: OverlayTransform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096128508686206948, guid: cf88b42ce208a42d98769298833641dc, type: 3}
+      propertyPath: InventoryTransform
+      value: 
+      objectReference: {fileID: 807631040}
     - target: {fileID: 8205160271726211856, guid: cf88b42ce208a42d98769298833641dc, type: 3}
       propertyPath: m_Name
       value: InventoryBar
@@ -2106,6 +2126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 0}
 --- !u!23 &969793108
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2336,8 +2357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2cdd3ff461304f8ea5ca17d2d433e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CushionInteraction
-  cushionData: {fileID: 11400000, guid: f208caa3229194099a82a9f0777e9421, type: 2}
   cameraController: {fileID: 2018374041}
+  cushionData: {fileID: 11400000, guid: f208caa3229194099a82a9f0777e9421, type: 2}
 --- !u!1001 &1076535875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2958,6 +2979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 0}
 --- !u!65 &1207944633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3351,6 +3373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 1598245688, guid: aaf42ad0e59ea4e2bbe1bf79c8cfcc79, type: 3}
 --- !u!65 &1420008053
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3419,6 +3442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 0}
 --- !u!136 &1429002379
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4132,6 +4156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 0}
 --- !u!135 &1664665822
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4395,6 +4420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 0}
 --- !u!136 &1785556597
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4807,8 +4833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2cdd3ff461304f8ea5ca17d2d433e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CushionInteraction
-  cushionData: {fileID: 11400000, guid: 16515e954aefb4e6bb2bc5aaab81c94d, type: 2}
   cameraController: {fileID: 2018374041}
+  cushionData: {fileID: 11400000, guid: 16515e954aefb4e6bb2bc5aaab81c94d, type: 2}
 --- !u!65 &1977915542
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5034,6 +5060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04886af2a31d543fc8e60c9c9e496539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  icon: {fileID: 0}
 --- !u!20 &2018374036 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2126394619451206823, guid: a451959097666411585b0a41ca1727a8, type: 3}

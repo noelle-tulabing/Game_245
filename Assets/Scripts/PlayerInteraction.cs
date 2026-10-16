@@ -25,7 +25,8 @@ public class PlayerInteraction : MonoBehaviour, IClickable
         Debug.Log("checking if item: " + Inventory.getItem(index).name + " against " + collectable.name);
         if (Inventory.getItem(index) == collectable)
         {
-            Destroy(collectable.gameObject);
+            Inventory.RemoveItemFromInventory(Inventory.checkSelected());
+            //Destroy(collectable.gameObject);
             Debug.Log("you win!");
         }
     }

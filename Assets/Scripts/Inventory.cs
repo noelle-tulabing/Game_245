@@ -3,10 +3,11 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private InventorySlot inventorySlot;
-    public static InventorySlot[] inventory = new InventorySlot[9];
+
+    private static InventorySlot[] inventory = new InventorySlot[9];
     private static int firstOpenSlot;
 	private static int slotSelected;
-    public Transform InventoryTransfrom;
+    public Transform InventoryTransform;
 
 	void Start()
 	{
@@ -14,7 +15,8 @@ public class Inventory : MonoBehaviour
         {
             float xPos = 317f + (i*160f);
             Vector3 spawnPosition = new Vector3(xPos, 80f, 0f);
-            inventory[i] = Instantiate(inventorySlot, spawnPosition, Quaternion.identity, InventoryTransfrom);
+            inventory[i] = Instantiate(inventorySlot, spawnPosition, Quaternion.identity, InventoryTransform);
+            // use the position of inventory slot to lay out spite masks?? --> then sprites can go in sprite mask position at inventory slot position
             inventory[i].setIndex(i);
         }
         firstOpenSlot = 0;
@@ -31,7 +33,7 @@ public class Inventory : MonoBehaviour
 		return inventory[index].getItem();
 	}
 
-    public static int AddItemToEmptyInventorySlot(Collectable add)
+    public static int AddItemToEmptyInventorySlot(Collectable add) // also update inventory icon somehow...
     {
         if (firstOpenSlot == -1)
         {
@@ -69,5 +71,16 @@ public class Inventory : MonoBehaviour
     public static void deselect()
     {
         inventory[slotSelected].HighlightInventorySlot();
+    }
+
+    public static void RemoveItemFromInventory(int index)
+    {
+        inventory[index].removeItem();
+        if (index < firstOpenSlot)
+        {
+            firstOpenSlot = index;
+        }
+        
+        //inventory[index] = new InventorySlot();
     }
 }

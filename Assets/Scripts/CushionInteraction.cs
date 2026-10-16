@@ -3,8 +3,9 @@ using DG.Tweening;
 
 public class CushionInteraction : MonoBehaviour, IClickable
 {
-    [SerializeField] private Cushion cushionData;
     public CameraController cameraController;
+    
+    [SerializeField] private Cushion cushionData;
     private float speed = 5f;
     private Tween moveTween;
     private bool cushionUp;
