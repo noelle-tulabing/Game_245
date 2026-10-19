@@ -5,7 +5,7 @@ public class PlayerInteraction : MonoBehaviour, IClickable
 {
     public Collectable collectable;
 
-    private void use(Collider item)
+    private static void use(Collider item) // ex: item1.use(item2)
     {
         
     }
@@ -23,7 +23,8 @@ public class PlayerInteraction : MonoBehaviour, IClickable
         }
         Debug.Log("player has selected index: " + index);
         Debug.Log("checking if item: " + Inventory.getItem(index).name + " against " + collectable.name);
-        if (Inventory.getItem(index) == collectable)
+        if (Inventory.getItem(index) == collectable) // breaks if selected collectable is the collectable
+                                                     // (does not check what the item is being used on)
         {
             Inventory.RemoveItemFromInventory(Inventory.checkSelected());
             //Destroy(collectable.gameObject);
