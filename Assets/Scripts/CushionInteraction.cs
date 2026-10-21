@@ -4,7 +4,7 @@ using DG.Tweening;
 public class CushionInteraction : MonoBehaviour, IClickable
 {
     public CameraController cameraController;
-    
+    [SerializeField] private CameraFocus cameraFocus;
     [SerializeField] private Cushion cushionData;
     private float speed = 5f;
     private Tween moveTween;
@@ -17,7 +17,7 @@ public class CushionInteraction : MonoBehaviour, IClickable
     void Update()
     {
         if (transform.position != cushionData.startingPosition &&
-            cameraController.getCurrentPosition() != cushionData.cameraViewPosition)
+            cameraController.getCurrentPosition() != cameraFocus.cameraViewPosition)
         {
             moveCushionDown();
         }
@@ -30,15 +30,19 @@ public class CushionInteraction : MonoBehaviour, IClickable
 
     public void OnClick()
     {
-        Vector3 camPos = cameraController.getCurrentPosition();
-        if (camPos != cushionData.cameraRoomZoom &&
-            camPos != cushionData.cameraViewPosition)
+        if (Inventory.getItem(Inventory.checkSelected()).name != "book_2")
         {
-            Debug.Log("cannot move cushion");
+            Debug.Log("missing an item");
             return;
         }
+        Vector3 camPos = cameraController.getCurrentPosition();
+        if (camPos != cameraFocus.cameraRoomZoom &&
+            camPos != cameraFocus.cameraViewPosition)
+        {
+            Debug.Log("cannot move cushion");
+        }
         moveTo(transform.position != cushionData.startingPosition ? cushionData.startingPosition : cushionData.raisedPosition);
-        cameraController.checkUnderCushion(cushionData);
+        cameraController.focusOnCollectable(cameraFocus);
     }
 
     private void moveTo(Vector3 target)

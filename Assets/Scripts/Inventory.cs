@@ -29,6 +29,10 @@ public class Inventory : MonoBehaviour
 	
 	public static Collectable getItem(int index)
     {
+        if (index == -1)
+        {
+            return null;
+        }
 		return inventory[index].getItem();
 	}
 

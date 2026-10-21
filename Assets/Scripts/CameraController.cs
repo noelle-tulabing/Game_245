@@ -84,17 +84,15 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void checkUnderCushion(Cushion cushionData)
-    {
-        // Only move if we're zoomed in on this cushion's room
-        if (transform.position != cushionData.cameraRoomZoom)
-            return;
+    // public void checkUnderCushion(CameraFocus cameraFocus)
+    // {
+    //     // Only move if we're zoomed in on this cushion's room
+    //     if (transform.position != cameraFocus.cameraRoomZoom)
+    //         return;
+    //     focusOnCollectable(cameraFocus);
+    // }
 
-        MoveTo(cushionData.cameraViewPosition, 10f);
-        RotateTo(cushionData.cameraViewRotation, 100f);
-    }
-
-    public void focusOnCollectable(CollectableData collectableData)
+    public void focusOnCollectable(CameraFocus collectableData)
     {
         MoveTo(collectableData.cameraViewPosition, 10f);
         RotateTo(collectableData.cameraViewRotation, 100f);

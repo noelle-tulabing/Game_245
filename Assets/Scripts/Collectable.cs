@@ -4,7 +4,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour, IClickable
 {
     [SerializeField] private CameraController cameraController;
-    [SerializeField] private CollectableData collectableData;
+    [SerializeField] private CameraFocus collectableData;
     
     public Sprite icon;
     public void Start()
@@ -30,10 +30,11 @@ public class Collectable : MonoBehaviour, IClickable
                 }
                 break;
             default:
+                Debug.Log("cannot use " + item.name + " on " + gameObject.name);
+                IClickable clickable = item.gameObject.GetComponent<IClickable>();
+                clickable.OnClick();
                 break;
         }
-        // check name of collectable --> and what its using on 
-            // if statement for every valid possible combination??
     }
     
     public void OnClick()
