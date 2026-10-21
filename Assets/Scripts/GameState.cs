@@ -5,7 +5,7 @@ public class GameState
    public enum GameStateType
    {
       MainMenu,
-      Tutorial, // 
+      Tutorial, // similar to game playing except locked in first room until first file folder found
       GamePlaying, // use files found as progress indicators 
       GamePaused, // esc key binding
       GameWon, // canvas screen

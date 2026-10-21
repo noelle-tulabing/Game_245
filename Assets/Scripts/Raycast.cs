@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Raycast : MonoBehaviour
@@ -23,11 +25,23 @@ public class Raycast : MonoBehaviour
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
+            // override method based on if player has selected an item in inventory?
             if (Physics.Raycast(ray, out hit, 100, clickable))
             {
+                Debug.Log("hit detected");
                 IClickable validClick = hit.transform.gameObject.GetComponent<IClickable>();
+                Debug.Log("player has clicked: " + validClick);
                 validClick.OnClick();
+                if (Inventory.getItem(Inventory.checkSelected()) != null && Inventory.checkSelected() > -1) // player has selected an item in inventory
+                {
+                    Debug.Log("Player is using " + Inventory.getItem(Inventory.checkSelected()).name + " on " + hit.collider.gameObject.name);
+                }
+                
+                // determine which interaction the click will trigger
+                // if player has selected an item in inventory --> try to use item
+                // if no item selected
+                // and clicking on collectable --> add to inventory
+                // and clicking in room --> object movement(?)
             }
         }
     }

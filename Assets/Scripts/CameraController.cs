@@ -11,18 +11,18 @@ public class CameraController : MonoBehaviour
     // Index order must match: 0 = north, 1 = east, 2 = south, 3 = west
     private readonly Quaternion[] rooms =
     {
-        Quaternion.Euler(0f, 0f, 0f),
-        Quaternion.Euler(0f, 90f, 0f),
-        Quaternion.Euler(0f, 180f, 0f),
-        Quaternion.Euler(0f, 270f, 0f)
+        Quaternion.Euler(0f, 0f, 0f), // north room
+        Quaternion.Euler(0f, 90f, 0f), // east room
+        Quaternion.Euler(0f, 180f, 0f), // south room
+        Quaternion.Euler(0f, 270f, 0f) // west room
     };
 
     private readonly Vector3[] roomZoomPositions =
     {
-        new Vector3(0f, 2f, 3f),
-        new Vector3(5f, 2f, -2f),
-        new Vector3(0f, 2f, -7f),
-        new Vector3(-5f, 2f, -2f)
+        new Vector3(0f, 2f, 3f), // north room zoom
+        new Vector3(5f, 2f, -2f), // east room zoom
+        new Vector3(0f, 2f, -7f), // south room zoom
+        new Vector3(-5f, 2f, -2f) // west room zoom
     };
 
     private int currentRoom;
@@ -40,6 +40,7 @@ public class CameraController : MonoBehaviour
 
     public Quaternion getCurrentRoom() => rooms[currentRoom];
     public Vector3 getCurrentPosition() => transform.position;
+    public Quaternion getCurrentRotation() => transform.rotation;
 
     // ---------- Rotation ----------
 
@@ -89,8 +90,14 @@ public class CameraController : MonoBehaviour
         if (transform.position != cushionData.cameraRoomZoom)
             return;
 
-        MoveTo(cushionData.cameraViewPosition, ZoomSpeed);
-        RotateTo(cushionData.cameraViewRotation, RotateSpeed);
+        MoveTo(cushionData.cameraViewPosition, 10f);
+        RotateTo(cushionData.cameraViewRotation, 100f);
+    }
+
+    public void focusOnCollectable(CollectableData collectableData)
+    {
+        MoveTo(collectableData.cameraViewPosition, 10f);
+        RotateTo(collectableData.cameraViewRotation, 100f);
     }
 
     // ---------- Tween helpers ----------

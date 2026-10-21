@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewCushion", menuName = "Cushions/Cushion")]
+[CreateAssetMenu(fileName = "NewCushion", menuName = "Cushion/Cushion")] 
 public class Cushion : ScriptableObject
 {
     // cushion positions

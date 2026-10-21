@@ -16,7 +16,6 @@ public class Inventory : MonoBehaviour
             float xPos = 317f + (i*160f);
             Vector3 spawnPosition = new Vector3(xPos, 80f, 0f);
             inventory[i] = Instantiate(inventorySlot, spawnPosition, Quaternion.identity, InventoryTransform);
-            // use the position of inventory slot to lay out spite masks?? --> then sprites can go in sprite mask position at inventory slot position
             inventory[i].setIndex(i);
         }
         firstOpenSlot = 0;
@@ -35,6 +34,8 @@ public class Inventory : MonoBehaviour
 
     public static int AddItemToEmptyInventorySlot(Collectable add) // also update inventory icon somehow...
     {
+        // first check if an item is selected in inventory 
+            // 
         if (firstOpenSlot == -1)
         {
             return -1;

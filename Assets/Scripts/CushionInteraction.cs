@@ -8,27 +8,24 @@ public class CushionInteraction : MonoBehaviour, IClickable
     [SerializeField] private Cushion cushionData;
     private float speed = 5f;
     private Tween moveTween;
-    private bool cushionUp;
 
     void Start()
     {
         transform.position = cushionData.startingPosition;
-        cushionUp = false;
     }
 
     void Update()
     {
-        if (cushionUp &&
+        if (transform.position != cushionData.startingPosition &&
             cameraController.getCurrentPosition() != cushionData.cameraViewPosition)
         {
             moveCushionDown();
         }
     }
 
-    void moveCushionDown() // somehow tell cushion to move back to oringinal position when zoom out ui button pressed
+    private void moveCushionDown()
     {
-        MoveTo(cushionData.startingPosition);
-        cushionUp = false;
+        moveTo(cushionData.startingPosition);
     }
 
     public void OnClick()
@@ -40,14 +37,11 @@ public class CushionInteraction : MonoBehaviour, IClickable
             Debug.Log("cannot move cushion");
             return;
         }
-        Debug.Log("moving cushion");
-        MoveTo(cushionUp ? cushionData.startingPosition : cushionData.raisedPosition);
+        moveTo(transform.position != cushionData.startingPosition ? cushionData.startingPosition : cushionData.raisedPosition);
         cameraController.checkUnderCushion(cushionData);
-        cushionUp = !cushionUp;
-        Debug.Log("cushion done moving");
     }
 
-    void MoveTo(Vector3 target)
+    private void moveTo(Vector3 target)
     {
         moveTween?.Kill();
 

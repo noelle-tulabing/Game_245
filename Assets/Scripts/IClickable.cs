@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IClickable // use on collectables & zoomable scenes??
+public interface IClickable
 {
     public void OnClick();
 }
