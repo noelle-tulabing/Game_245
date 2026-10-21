@@ -35,7 +35,6 @@ public class CushionInteraction : MonoBehaviour, IClickable
             camPos != cushionData.cameraViewPosition)
         {
             Debug.Log("cannot move cushion");
-            return;
         }
         moveTo(transform.position != cushionData.startingPosition ? cushionData.startingPosition : cushionData.raisedPosition);
         cameraController.checkUnderCushion(cushionData);

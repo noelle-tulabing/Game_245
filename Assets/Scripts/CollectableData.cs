@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewCollectable", menuName = "Collectable/CollectableData")] // do all collectables need a special camera view to pickup? 
-public class CollectableData : ScriptableObject
+[CreateAssetMenu(fileName = "NewCameraView", menuName = "CameraView/CameraFocus")] 
+public class CameraFocus : ScriptableObject
 {
     // camera positions
     public Vector3 cameraRoomZoom;

@@ -31,17 +31,23 @@ public class Raycast : MonoBehaviour
                 Debug.Log("hit detected");
                 IClickable validClick = hit.transform.gameObject.GetComponent<IClickable>();
                 Debug.Log("player has clicked: " + validClick);
-                validClick.OnClick();
-                if (Inventory.getItem(Inventory.checkSelected()) != null && Inventory.checkSelected() > -1) // player has selected an item in inventory
+                if (hit.transform.gameObject.GetComponent<Focus>() != null)
+                {
+                    Focus focus = hit.transform.gameObject.GetComponent<Focus>();
+                    focus.OnClick();
+                }
+                else if (Inventory.getItem(Inventory.checkSelected()) != null && Inventory.checkSelected() > -1) // player has selected an item in inventory
                 {
                     Debug.Log("Player is using " + Inventory.getItem(Inventory.checkSelected()).name + " on " + hit.collider.gameObject.name);
+                    Collectable useItem = Inventory.getItem(Inventory.checkSelected());
+                    Collider onObject = hit.collider;
+                    useItem.use(onObject);
+                    // call use item method?
                 }
-                
-                // determine which interaction the click will trigger
-                // if player has selected an item in inventory --> try to use item
-                // if no item selected
-                // and clicking on collectable --> add to inventory
-                // and clicking in room --> object movement(?)
+                else
+                {
+                    validClick.OnClick();
+                }
             }
         }
     }

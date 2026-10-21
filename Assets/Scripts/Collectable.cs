@@ -4,7 +4,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour, IClickable
 {
     [SerializeField] private CameraController cameraController;
-    [SerializeField] private CollectableData collectableData;
+    [SerializeField] private CameraFocus collectableData;
     
     public Sprite icon;
     public void Start()
