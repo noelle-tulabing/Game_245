@@ -4,7 +4,6 @@ using UnityEngine;
 public class CameraFocus : ScriptableObject
 {
     // camera positions
-    public Vector3 cameraRoomZoom;
     public Vector3 cameraViewPosition;
     public Quaternion cameraViewRotation;
 }

@@ -17,7 +17,7 @@ public class Collectable : MonoBehaviour, IClickable
         return icon;
     }
 
-    public void use(Collider item)
+    public bool use(Collider item)
     {
         switch (gameObject.name)
         {
@@ -27,19 +27,19 @@ public class Collectable : MonoBehaviour, IClickable
                     Debug.Log("using screwdriver on screw");
                     item.gameObject.SetActive(false);
                     Debug.Log("screw off");
+                    return true;
                 }
                 break;
             default:
-                Debug.Log("cannot use " + item.name + " on " + gameObject.name);
-                IClickable clickable = item.gameObject.GetComponent<IClickable>();
-                clickable.OnClick();
+                Debug.Log("cannot use " + gameObject.name + " on " + item.name);
                 break;
         }
+        return false;
     }
     
     public void OnClick()
     {
-        if (cameraController.getCurrentPosition() == collectableData.cameraRoomZoom)
+        if (cameraController.zoomedIn)
         {
             Debug.Log("player can see a collectable");
             cameraController.focusOnCollectable(collectableData);

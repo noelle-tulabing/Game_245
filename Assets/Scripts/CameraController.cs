@@ -7,38 +7,24 @@ public class CameraController : MonoBehaviour
     private const float ZoomSpeed = 10f;     // units per second
 
     private readonly Vector3 startingPosition = new Vector3(0f, 2f, -2f);
-    
-    // Index order must match: 0 = north, 1 = east, 2 = south, 3 = west
-    private readonly Quaternion[] rooms =
-    {
-        Quaternion.Euler(0f, 0f, 0f), // north room
-        Quaternion.Euler(0f, 90f, 0f), // east room
-        Quaternion.Euler(0f, 180f, 0f), // south room
-        Quaternion.Euler(0f, 270f, 0f) // west room
-    };
 
-    private readonly Vector3[] roomZoomPositions =
-    {
-        new Vector3(0f, 2f, 3f), // north room zoom
-        new Vector3(5f, 2f, -2f), // east room zoom
-        new Vector3(0f, 2f, -7f), // south room zoom
-        new Vector3(-5f, 2f, -2f) // west room zoom
-    };
-
-    private int currentRoom;
+    private Room currentRoom = Room.North;
     private Tween moveTween;
     private Tween rotateTween;
 
     public UI UI;
+    public bool zoomedIn;
 
     void Start()
     {
+        currentRoom = Room.North;
         transform.position = startingPosition;
-        transform.rotation = rooms[0];
-        currentRoom = 0;
+        transform.rotation = RoomManager.Get(currentRoom).Rotation;
+        zoomedIn = false;
     }
 
-    public Quaternion getCurrentRoom() => rooms[currentRoom];
+    public Room getCurrentRoom() => currentRoom;
+    public Quaternion getCurrentRoomRotation() => RoomManager.Get(currentRoom).Rotation;
     public Vector3 getCurrentPosition() => transform.position;
     public Quaternion getCurrentRotation() => transform.rotation;
 
@@ -46,14 +32,14 @@ public class CameraController : MonoBehaviour
 
     public void rotateCameraLeft()
     {
-        currentRoom = (currentRoom + 3) % 4;   // -1 with wraparound
-        RotateTo(rooms[currentRoom], RotateSpeed);
+        currentRoom = RoomManager.Previous(currentRoom);
+        RotateTo(RoomManager.Get(currentRoom).Rotation, RotateSpeed);
     }
 
     public void rotateCameraRight()
     {
-        currentRoom = (currentRoom + 1) % 4;
-        RotateTo(rooms[currentRoom], RotateSpeed);
+        currentRoom = RoomManager.Next(currentRoom);
+        RotateTo(RoomManager.Get(currentRoom).Rotation, RotateSpeed);
     }
 
     // ---------- Zoom ----------
@@ -64,33 +50,29 @@ public class CameraController : MonoBehaviour
             return;
 
         UI.zoomButton();
-        MoveTo(roomZoomPositions[currentRoom], ZoomSpeed);
+        MoveTo(RoomManager.Get(currentRoom).ZoomPosition, ZoomSpeed);
+        zoomedIn = true;
     }
 
     public void zoomOutCamera()
     {
+        RoomData room = RoomManager.Get(currentRoom);
+
         if (IsAtRoomZoomPosition())
         {
             // Zoomed in on a room -> back out to the overview
             MoveTo(startingPosition, ZoomSpeed);
-            RotateTo(rooms[currentRoom], RotateSpeed);
+            RotateTo(room.Rotation, RotateSpeed);
             UI.rotateButtons();
+            zoomedIn = false;
         }
         else
         {
             // E.g. under the cushion -> back to this room's zoomed-in view
-            MoveTo(roomZoomPositions[currentRoom], ZoomSpeed);
-            RotateTo(rooms[currentRoom], RotateSpeed);
+            MoveTo(room.ZoomPosition, ZoomSpeed);
+            RotateTo(room.Rotation, RotateSpeed);
         }
     }
-
-    // public void checkUnderCushion(CameraFocus cameraFocus)
-    // {
-    //     // Only move if we're zoomed in on this cushion's room
-    //     if (transform.position != cameraFocus.cameraRoomZoom)
-    //         return;
-    //     focusOnCollectable(cameraFocus);
-    // }
 
     public void focusOnCollectable(CameraFocus collectableData)
     {
@@ -116,7 +98,6 @@ public class CameraController : MonoBehaviour
     {
         rotateTween?.Kill();
 
-        // Duration from angle keeps the speed in degrees/sec
         float duration = Quaternion.Angle(transform.rotation, target) / degreesPerSecond;
 
         rotateTween = transform
@@ -128,9 +109,9 @@ public class CameraController : MonoBehaviour
 
     bool IsAtRoomZoomPosition()
     {
-        foreach (Vector3 pos in roomZoomPositions)
+        foreach (RoomData room in RoomManager.All)
         {
-            if (transform.position == pos)
+            if (transform.position == room.ZoomPosition)
                 return true;
         }
         return false;

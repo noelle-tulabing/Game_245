@@ -28,7 +28,6 @@ public class Raycast : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100, clickable))
             {
                 IClickable validClick = hit.transform.gameObject.GetComponent<IClickable>();
-                // Debug.Log("player has clicked: " + validClick);
                 if (hit.transform.gameObject.GetComponent<Focus>() != null)
                 {
                     Focus focus = hit.transform.gameObject.GetComponent<Focus>();
@@ -39,7 +38,15 @@ public class Raycast : MonoBehaviour
                     Debug.Log("Player is using " + Inventory.getItem(Inventory.checkSelected()).name + " on " + hit.collider.gameObject.name);
                     Collectable useItem = Inventory.getItem(Inventory.checkSelected());
                     Collider onObject = hit.collider;
-                    useItem.use(onObject);
+                    if (useItem.use(onObject))
+                    {
+                        useItem.use(onObject);
+                    }
+                    else
+                    {
+                        Debug.Log("cannot use " + useItem.name + " on " + onObject.name);
+                        hit.collider.gameObject.GetComponent<IClickable>().OnClick();
+                    }
                 }
                 else
                 {
