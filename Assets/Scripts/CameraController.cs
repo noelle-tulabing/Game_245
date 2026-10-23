@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     private const float ZoomSpeed = 10f;     // units per second
 
     private readonly Vector3 startingPosition = new Vector3(0f, 2f, -2f);
-
+    
     // Index order must match: 0 = north, 1 = east, 2 = south, 3 = west
     private readonly Quaternion[] rooms =
     {
