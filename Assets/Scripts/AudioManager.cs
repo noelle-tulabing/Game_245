@@ -5,7 +5,9 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance {get; private set;}
     
     public AudioSource backgroundMusicSource;
-    // public AudioSource playerSFXSource; - may be changed to be specifically clue finding sfx
+    public AudioClip caseFileClip;
+    public AudioClip keyClip;
+    public AudioClip screwdriverClip;
     // public AudioSource worldSFXSource;
 
     private void Awake()
@@ -19,6 +21,22 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void OnEnable()
+    {
+        PlayerInteraction.OnFileFound += PlayCaseFileSFX;
+        Collectable.OnKeyUsed +=  PlayKeySFX;
+        Collectable.OnScrewdriverUsed += PlayScrewdriverSFX;
+        Inventory.OnKeyPickup += PlayKeySFX;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInteraction.OnFileFound -= PlayCaseFileSFX;
+        Collectable.OnKeyUsed -= PlayKeySFX;
+        Collectable.OnScrewdriverUsed -= PlayScrewdriverSFX;
+        Inventory.OnKeyPickup -= PlayKeySFX;
+    }
+
     public void PlayBackgroundMusic(AudioClip clip)
     {
         if (backgroundMusicSource.isPlaying)
@@ -28,7 +46,26 @@ public class AudioManager : MonoBehaviour
         backgroundMusicSource.clip = clip;
         backgroundMusicSource.Play();
     }
+
+    private void PlayCaseFileSFX()
+    {
+        backgroundMusicSource.clip = caseFileClip;
+        backgroundMusicSource.Play();
+    }
+
+    private void PlayKeySFX()
+    {
+        backgroundMusicSource.clip = keyClip;
+        backgroundMusicSource.Play();
+    }
+
+    private void PlayScrewdriverSFX()
+    {
+        backgroundMusicSource.clip = screwdriverClip;
+        backgroundMusicSource.Play();
+    }
     
     // public void PlayPlayerSFX(AudioClip clip)
-        // playerSFXSource.PlayClueSound(clip); - for playing individual musical sting and/or pickup sound
+    //backgroundMusicSource.PlayClueSound
+    //backgroundMusicS.PlayClueSound(clip); // - for playing individual musical sting and/or pickup sound
 }

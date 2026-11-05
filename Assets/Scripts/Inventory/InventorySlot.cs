@@ -80,13 +80,5 @@ public class InventorySlot : MonoBehaviour, IClickable
             Inventory.deselect();
             HighlightInventorySlot();
         }
-        if (Inventory.getItem(index) != null)
-        {
-           Debug.Log(item.gameObject.name + " at index " + index);
-        }
-        else
-        {
-            Debug.Log("No item found at index " + index);
-        }
     }
 }

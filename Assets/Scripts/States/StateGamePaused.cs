@@ -6,7 +6,7 @@ namespace States
 
         public override void OnMyStateEntered()
         {
-            
+            GameManager.ui.settingsButton();
         }
 
         public override void OnMyStateExit()

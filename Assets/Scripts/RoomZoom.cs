@@ -7,7 +7,6 @@ public class RoomZoom : MonoBehaviour, IClickable
 
     public void OnClick()
     {
-        print(gameObject.name + " has been clicked");
         cameraController.zoomCameraIn();
     }
 }

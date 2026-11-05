@@ -5,7 +5,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private CameraController cameraController;
     [SerializeField] private Raycast controls;
-    [SerializeField] private AudioManager audioManager;
+    [SerializeField] public AudioManager audioManager;
     [SerializeField] public UI ui;
     
     // STATES

@@ -24,14 +24,7 @@ public class Raycast : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100, clickable))
                 {
-                    try
-                    {
-                        player.PlayerClicked(hit.transform.gameObject);
-                    }
-                    catch
-                    {
-                        Debug.Log("error: invalid hit of raycast");
-                    }
+                    player.PlayerClicked(hit.transform.gameObject);
                 }
             }
             else

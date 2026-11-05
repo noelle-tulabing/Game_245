@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -8,6 +9,8 @@ public class Inventory : MonoBehaviour
     private static int firstOpenSlot;
 	private static int slotSelected;
     public Transform InventoryTransform;
+    
+    public static event Action OnKeyPickup;
 
 	void Start()
 	{
@@ -38,9 +41,13 @@ public class Inventory : MonoBehaviour
             Debug.Log("error: could not add item to inventory");
             return -1;
         }
+
+        if (add.CompareTag("key"))
+        {
+            OnKeyPickup?.Invoke();
+        }
         inventory[firstOpenSlot].holdItem(add);
         add.gameObject.SetActive(false);
-    
         for (int i = 0; i < inventory.Length; i++)
         {
             if (inventory[i].getItem() == null)

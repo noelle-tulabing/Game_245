@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -5,7 +6,8 @@ public class Collectable : MonoBehaviour, IClickable
 {
     [SerializeField] private CameraController cameraController;
     [SerializeField] private CameraFocus collectableData;
-    
+    public static event Action OnKeyUsed;
+    public static event Action OnScrewdriverUsed;
     public Sprite icon;
     public void Start()
     {
@@ -29,6 +31,7 @@ public class Collectable : MonoBehaviour, IClickable
                 if (item.CompareTag("safe"))
                 {
                     item.gameObject.SetActive(false);
+                    OnKeyUsed?.Invoke();
                     Inventory.RemoveItemFromInventory(Inventory.checkSelected());
                     Destroy(item.gameObject);
                     Inventory.deselect();
@@ -43,6 +46,7 @@ public class Collectable : MonoBehaviour, IClickable
                 if (item.CompareTag("screw"))
                 {
                     Debug.Log("using screwdriver on screw");
+                    OnScrewdriverUsed?.Invoke();
                     item.gameObject.SetActive(false);
                     Debug.Log("screw off");
                     //once all screws off remove screwdriver from inventory?

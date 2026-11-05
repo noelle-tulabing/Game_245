@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInteraction : Player
 {
+    public static event Action OnFileFound;
     public void PlayerClicked(GameObject hit)
     {
         IClickable validClick = hit.transform.gameObject.GetComponent<IClickable>();
@@ -11,7 +12,6 @@ public class PlayerInteraction : Player
         {
             CaseFile caseFile = hit.transform.gameObject.GetComponent<CaseFile>();
             CaseFileFound(caseFile);
-            Destroy(caseFile.gameObject);
         }
         else if (hit.transform.gameObject.GetComponent<Focus>() != null)
         {
@@ -20,8 +20,6 @@ public class PlayerInteraction : Player
         }
         else if (Inventory.getItem(Inventory.checkSelected()) !=null)
         {
-                    
-            Debug.Log("Player is using " + Inventory.getItem(Inventory.checkSelected()).name + " on " + hit.GetComponent<Collider>().gameObject.name);
             Collectable useItem = Inventory.getItem(Inventory.checkSelected());
             Collider onObject = hit.GetComponent<Collider>();
             if (useItem != null && useItem.use(onObject))
@@ -44,6 +42,7 @@ public class PlayerInteraction : Player
     {
         Debug.Log("current case files found: " + GetFilesFound());
         newFileFound();
+        OnFileFound?.Invoke();
         Destroy(caseFile.gameObject);
         Debug.Log("updated case files found: " + GetFilesFound());
         if (GetFilesFound() == 1)
