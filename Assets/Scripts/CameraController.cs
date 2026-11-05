@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using States;
 
 public class CameraController : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class CameraController : MonoBehaviour
 
     public UI UI;
     public bool zoomedIn;
-
+    
+    [SerializeField] private GameController manager;
+    
     void Start()
     {
         currentRoom = Room.North;
@@ -25,7 +28,9 @@ public class CameraController : MonoBehaviour
 
     public Room getCurrentRoom() => currentRoom;
     public Quaternion getCurrentRoomRotation() => RoomManager.Get(currentRoom).Rotation;
+    
     public Vector3 getCurrentPosition() => transform.position;
+   
     public Quaternion getCurrentRotation() => transform.rotation;
 
     // ---------- Rotation ----------
@@ -48,7 +53,6 @@ public class CameraController : MonoBehaviour
     {
         if (transform.position != startingPosition)
             return;
-
         UI.zoomButton();
         MoveTo(RoomManager.Get(currentRoom).ZoomPosition, ZoomSpeed);
         zoomedIn = true;
@@ -57,18 +61,16 @@ public class CameraController : MonoBehaviour
     public void zoomOutCamera()
     {
         RoomData room = RoomManager.Get(currentRoom);
-
         if (IsAtRoomZoomPosition())
         {
-            // Zoomed in on a room -> back out to the overview
             MoveTo(startingPosition, ZoomSpeed);
             RotateTo(room.Rotation, RotateSpeed);
+            Debug.Log("currently in state " + manager.GetCurrentState());
             UI.rotateButtons();
             zoomedIn = false;
         }
         else
         {
-            // E.g. under the cushion -> back to this room's zoomed-in view
             MoveTo(room.ZoomPosition, ZoomSpeed);
             RotateTo(room.Rotation, RotateSpeed);
         }

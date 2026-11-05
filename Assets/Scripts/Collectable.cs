@@ -14,6 +14,10 @@ public class Collectable : MonoBehaviour, IClickable
 
     public Sprite getIcon()
     {
+        if (icon == null)
+        {
+            return null;
+        }
         return icon;
     }
 
@@ -21,12 +25,27 @@ public class Collectable : MonoBehaviour, IClickable
     {
         switch (gameObject.name)
         {
+            case "key":
+                if (item.CompareTag("safe"))
+                {
+                    item.gameObject.SetActive(false);
+                    Inventory.RemoveItemFromInventory(Inventory.checkSelected());
+                    Destroy(item.gameObject);
+                    Inventory.deselect();
+                    // observer thing for first case file 
+                        // clear key from inventory
+                        // ui case file for progression
+                        // open up room(?) 
+                    return true;
+                }
+                break;
             case "screwdriver_poke":
                 if (item.CompareTag("screw"))
                 {
                     Debug.Log("using screwdriver on screw");
                     item.gameObject.SetActive(false);
                     Debug.Log("screw off");
+                    //once all screws off remove screwdriver from inventory?
                     return true;
                 }
                 break;
@@ -41,16 +60,12 @@ public class Collectable : MonoBehaviour, IClickable
     {
         if (cameraController.zoomedIn)
         {
-            Debug.Log("player can see a collectable");
             cameraController.focusOnCollectable(collectableData);
-            Debug.Log("player has focused on collectable");
         }
         if (cameraController.getCurrentPosition() == collectableData.cameraViewPosition
             && cameraController.getCurrentRotation() == collectableData.cameraViewRotation)
         {
-            Debug.Log("adding item " + this.name + " to inventory");
             Inventory.AddItemToEmptyInventorySlot(this);
-            Debug.Log(this.name + " has been added to inventory");
         }
     }
 }

@@ -1,0 +1,65 @@
+Detective Icons - Free Demo
+
+20 designs; 40 color/grayscale variants; 256x256 RGBA PNG.
+Same category paths below apply to color and Grayscale_Icons views.
+
+01_detective_tools (1)
+  magnifying_glass.png
+
+02_evidence_collection (1)
+  evidence_bag.png
+
+03_forensic_analysis (1)
+  fingerprint_card.png
+
+04_physical_clues (1)
+  shoeprint.png
+
+05_case_documents (1)
+  case_folder.png
+
+06_locks_access (1)
+  brass_key.png
+
+07_surveillance (1)
+  security_camera.png
+
+08_detective_outfit (1)
+  detective_hat.png
+
+09_office_equipment (1)
+  desk_lamp.png
+
+10_recovered_objects (1)
+  stolen_jewel.png
+
+11_storage_containers (1)
+  evidence_box.png
+
+12_investigation_props (1)
+  clue_board.png
+
+13_case_progress (1)
+  unsolved_case.png
+
+14_rewards_collectibles (1)
+  detective_coin.png
+
+15_ui_navigation (1)
+  ui_arrow_left.png
+
+16_ui_case_actions (1)
+  ui_investigate.png
+
+17_ui_inventory (1)
+  ui_inventory.png
+
+18_ui_session (1)
+  ui_play.png
+
+19_ui_settings_social (1)
+  ui_settings.png
+
+20_ui_progression (1)
+  ui_case_list.png
+

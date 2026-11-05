@@ -30,26 +30,21 @@ public class CushionInteraction : MonoBehaviour, IClickable
 
     public void OnClick()
     {
-        if (cameraController.getCurrentRoom() == Room.North)
-        {
-            if (Inventory.getItem(Inventory.checkSelected()) == null || Inventory.getItem(Inventory.checkSelected()).name != "book_2")
-            {
-                Debug.Log("missing an item");
-                return;
-            }
-        }
         moveCushion();
     }
 
     private void moveCushion()
     {
-        if (cameraController.zoomedIn && cameraController.getCurrentPosition() != cameraFocus.cameraViewPosition)
+        if (cameraController.zoomedIn)
         {
-            Debug.Log("cannot move cushion");
-            return;
+            if (cameraController.getCurrentPosition() != cameraFocus.cameraViewPosition)
+            {
+                Debug.Log("cannot move cushion");
+                return;
+            }
+            moveTo(transform.position != cushionData.startingPosition ? cushionData.startingPosition : cushionData.raisedPosition);
+            cameraController.focusOnCollectable(cameraFocus);
         }
-        moveTo(transform.position != cushionData.startingPosition ? cushionData.startingPosition : cushionData.raisedPosition);
-        cameraController.focusOnCollectable(cameraFocus);
     }
 
     private void moveTo(Vector3 target)

@@ -7,14 +7,13 @@ public class Focus : MonoBehaviour, IClickable
 
     void Start()
     {
-        cameraController =  FindObjectOfType<CameraController>();
+        cameraController =  FindFirstObjectByType<CameraController>();
     }
 
     public void OnClick()
     {
         if (cameraController.zoomedIn)
         {
-            Debug.Log("Focusing on specific item/area");
             cameraController.focusOnCollectable(cameraFocus);
         }
         else
