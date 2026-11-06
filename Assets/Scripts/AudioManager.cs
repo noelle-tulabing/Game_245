@@ -8,7 +8,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip caseFileClip;
     public AudioClip keyClip;
     public AudioClip screwdriverClip;
-    // public AudioSource worldSFXSource;
 
     private void Awake()
     {
@@ -64,8 +63,4 @@ public class AudioManager : MonoBehaviour
         backgroundMusicSource.clip = screwdriverClip;
         backgroundMusicSource.Play();
     }
-    
-    // public void PlayPlayerSFX(AudioClip clip)
-    //backgroundMusicSource.PlayClueSound
-    //backgroundMusicS.PlayClueSound(clip); // - for playing individual musical sting and/or pickup sound
 }

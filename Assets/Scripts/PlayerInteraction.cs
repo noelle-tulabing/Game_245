@@ -40,14 +40,11 @@ public class PlayerInteraction : Player
     
     public void CaseFileFound(CaseFile caseFile)
     {
-        Debug.Log("current case files found: " + GetFilesFound());
         newFileFound();
         OnFileFound?.Invoke();
         Destroy(caseFile.gameObject);
-        Debug.Log("updated case files found: " + GetFilesFound());
         if (GetFilesFound() == 1)
         {
-            Debug.Log("switching state to game playing state");
             manager.NewGameState(manager.stateGamePlaying);
         }
     }

@@ -45,10 +45,8 @@ public class Collectable : MonoBehaviour, IClickable
             case "screwdriver_poke":
                 if (item.CompareTag("screw"))
                 {
-                    Debug.Log("using screwdriver on screw");
                     OnScrewdriverUsed?.Invoke();
                     item.gameObject.SetActive(false);
-                    Debug.Log("screw off");
                     //once all screws off remove screwdriver from inventory?
                     return true;
                 }

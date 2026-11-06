@@ -747,11 +747,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!224 &286468806 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 759093190893434040, guid: 2d05f538f8fbe4ff7975ba042ad51aaa, type: 3}
-  m_PrefabInstance: {fileID: 2531738452062675860}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &289998894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,12 +1182,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 363730335}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1553039734}
+  m_Father: {fileID: 1963692792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3709,12 +3704,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918149761}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 286468806}
+  m_Father: {fileID: 1963692792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5947,7 +5942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UI
   ChangeViewButtons: {fileID: 286468805}
   ZoomViewButton: {fileID: 597897564}
-  CaseFileButton: {fileID: 363730340}
+  PlayingStateUI: {fileID: 1963692793}
   PauseScreen: {fileID: 539051558}
   gameController: {fileID: 888999348}
 --- !u!1 &1441351696
@@ -7375,6 +7370,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4796361208330000288, guid: dbbe5fa85d4d5e642bcdefc9738dffd0, type: 3}
   m_PrefabInstance: {fileID: 1944714798}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1963692791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1963692792}
+  - component: {fileID: 1963692793}
+  m_Layer: 5
+  m_Name: PlayingScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1963692792
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963692791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 363730336}
+  - {fileID: 918149762}
+  m_Father: {fileID: 1553039734}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1963692793
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963692791}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1977915537 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2127107343962637041, guid: a21d0703de43c0e47bfeb450abc4c8a2, type: 3}
@@ -8275,13 +8320,10 @@ PrefabInstance:
       addedObject: {fileID: 807631040}
     - targetCorrespondingSourceObject: {fileID: 3942917266952064171, guid: 2d05f538f8fbe4ff7975ba042ad51aaa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 363730336}
+      addedObject: {fileID: 1963692792}
     - targetCorrespondingSourceObject: {fileID: 3942917266952064171, guid: 2d05f538f8fbe4ff7975ba042ad51aaa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 539051555}
-    - targetCorrespondingSourceObject: {fileID: 759093190893434040, guid: 2d05f538f8fbe4ff7975ba042ad51aaa, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 918149762}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1925535200645530068, guid: 2d05f538f8fbe4ff7975ba042ad51aaa, type: 3}
       insertIndex: -1

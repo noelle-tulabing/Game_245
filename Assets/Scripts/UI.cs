@@ -4,7 +4,7 @@ public class UI : MonoBehaviour
 {
     public CanvasGroup ChangeViewButtons;
     public CanvasGroup ZoomViewButton;
-    public CanvasGroup CaseFileButton;
+    public CanvasGroup PlayingStateUI;
     public CanvasGroup PauseScreen;
     
     [SerializeField] private GameController gameController;
@@ -32,9 +32,9 @@ public class UI : MonoBehaviour
         CanvasGroupDisplayer.Hide(ZoomViewButton);
     }
 
-    public void caseFileButton()
+    public void playingStateUI()
     {
-        CanvasGroupDisplayer.Show(CaseFileButton);
+        CanvasGroupDisplayer.Show(PlayingStateUI);
     }
 
     public void settingsButton()
@@ -53,7 +53,7 @@ public class UI : MonoBehaviour
     {
         CanvasGroupDisplayer.Hide(ChangeViewButtons);
         CanvasGroupDisplayer.Hide(ZoomViewButton);
-        CanvasGroupDisplayer.Hide(CaseFileButton);
+        CanvasGroupDisplayer.Hide(PlayingStateUI);
         CanvasGroupDisplayer.Hide(PauseScreen);
     }
 }

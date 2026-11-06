@@ -11,7 +11,7 @@ namespace States
 
         public override void OnMyStateExit()
         {
-            GameManager.ui.caseFileButton();
+            GameManager.ui.playingStateUI();
         }
         
     }

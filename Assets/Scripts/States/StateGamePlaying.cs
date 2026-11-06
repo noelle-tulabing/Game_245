@@ -6,7 +6,7 @@ namespace States
 
         public override void OnMyStateEntered()
         {
-            GameManager.ui.caseFileButton();
+            GameManager.ui.playingStateUI();
         }
 
         public override void OnMyStateExit()
