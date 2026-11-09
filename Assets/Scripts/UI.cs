@@ -6,6 +6,7 @@ public class UI : MonoBehaviour
     public CanvasGroup ZoomViewButton;
     public CanvasGroup PlayingStateUI;
     public CanvasGroup PauseScreen;
+    public CanvasGroup CaseFileMenu;
     
     [SerializeField] private GameController gameController;
     
@@ -47,6 +48,18 @@ public class UI : MonoBehaviour
     {
         gameController.NewGameState(gameController.stateGamePlaying);
         CanvasGroupDisplayer.Hide(PauseScreen);
+    }
+
+    public void CaseFileUI()
+    {
+        if (CaseFileMenu.alpha == 1)
+        {
+            CanvasGroupDisplayer.Hide(CaseFileMenu);
+        }
+        else
+        {
+            CanvasGroupDisplayer.Show(CaseFileMenu);
+        }
     }
 
     public void tutorialUI()
