@@ -18,7 +18,7 @@ public class Raycast : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(gameController.GetCurrentState() == gameController.stateGamePlaying || gameController.GetCurrentState() == gameController.stateGameTutorial)
+            if(GameController.GetCurrentState() == gameController.stateGamePlaying || GameController.GetCurrentState() == gameController.stateGameTutorial)
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;

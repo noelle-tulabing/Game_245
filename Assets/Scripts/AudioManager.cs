@@ -46,7 +46,7 @@ public class AudioManager : MonoBehaviour
         backgroundMusicSource.Play();
     }
 
-    private void PlayCaseFileSFX()
+    public void PlayCaseFileSFX()
     {
         backgroundMusicSource.clip = caseFileClip;
         backgroundMusicSource.Play();

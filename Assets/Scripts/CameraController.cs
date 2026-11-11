@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
 using States;
@@ -14,9 +15,10 @@ public class CameraController : MonoBehaviour
     private Tween rotateTween;
 
     public UI UI;
-    public bool zoomedIn;
+    public static bool zoomedIn;
     
     [SerializeField] private GameController manager;
+    public static event Action OnRoomZoomOut;
     
     void Start()
     {
@@ -28,10 +30,26 @@ public class CameraController : MonoBehaviour
 
     public Room getCurrentRoom() => currentRoom;
     public Quaternion getCurrentRoomRotation() => RoomManager.Get(currentRoom).Rotation;
-    
-    public Vector3 getCurrentPosition() => transform.position;
-   
-    public Quaternion getCurrentRotation() => transform.rotation;
+
+    public static Vector3 getCurrentPosition()
+    {
+        if (Camera.main != null)
+        {
+            return Camera.main.transform.position;
+        }
+        Debug.Log("error: no camera found");
+        return Vector3.zero;
+    }
+
+    public static Quaternion getCurrentRotation()
+    {
+        if (Camera.main != null)
+        {
+            return Camera.main.transform.rotation;
+        }
+        Debug.Log("error: no camera found");
+        return Quaternion.identity;
+    }
 
     // ---------- Rotation ----------
 
@@ -65,8 +83,8 @@ public class CameraController : MonoBehaviour
         {
             MoveTo(startingPosition, ZoomSpeed);
             RotateTo(room.Rotation, RotateSpeed);
-            Debug.Log("currently in state " + manager.GetCurrentState());
             UI.rotateButtons();
+            OnRoomZoomOut?.Invoke();
             zoomedIn = false;
         }
         else

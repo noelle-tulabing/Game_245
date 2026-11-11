@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64da87f0ca906413396106aa90ba3fe2, type: 3}
   m_Name: vent
   m_EditorClassIdentifier: Assembly-CSharp::CameraFocus
-  cameraRoomZoom: {x: 0, y: 2, z: 3}
-  cameraViewPosition: {x: 0, y: 4.6, z: 8.7}
-  cameraViewRotation: {x: 0, y: 0, z: 0, w: 0}
+  cameraViewPosition: {x: 8.5, y: 4, z: -2}
+  cameraViewRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}

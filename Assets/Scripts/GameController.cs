@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     [SerializeField] public UI ui;
     
     // STATES
-    private GameState currentState;
+    private static GameState currentState;
     public StateGameMainMenu stateGameMainMenu;
     public StateGameTutorial stateGameTutorial;
     public StateGamePlaying stateGamePlaying;
@@ -24,7 +24,8 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     {
-        NewGameState(stateGameTutorial);
+        //NewGameState(stateGameTutorial);
+        NewGameState(stateGamePlaying);
     }
 
     private void Update()
@@ -45,10 +46,8 @@ public class GameController : MonoBehaviour
         currentState.OnMyStateEntered();
     }
     
-    public GameState GetCurrentState()
+    public static GameState GetCurrentState()
     {
         return currentState;
     }
-    
-    
 }

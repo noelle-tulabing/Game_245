@@ -12,7 +12,7 @@ public class Focus : MonoBehaviour, IClickable
 
     public void OnClick()
     {
-        if (cameraController.zoomedIn)
+        if (CameraController.zoomedIn)
         {
             cameraController.focusOnCollectable(cameraFocus);
         }

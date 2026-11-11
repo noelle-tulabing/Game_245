@@ -17,7 +17,7 @@ public class CushionInteraction : MonoBehaviour, IClickable
     void Update()
     {
         if (transform.position != cushionData.startingPosition &&
-            cameraController.getCurrentPosition() != cameraFocus.cameraViewPosition)
+            CameraController.getCurrentPosition() != cameraFocus.cameraViewPosition)
         {
             moveCushionDown();
         }
@@ -35,9 +35,9 @@ public class CushionInteraction : MonoBehaviour, IClickable
 
     private void moveCushion()
     {
-        if (cameraController.zoomedIn)
+        if (CameraController.zoomedIn)
         {
-            if (cameraController.getCurrentPosition() != cameraFocus.cameraViewPosition)
+            if (CameraController.getCurrentPosition() != cameraFocus.cameraViewPosition)
             {
                 Debug.Log("cannot move cushion");
                 return;

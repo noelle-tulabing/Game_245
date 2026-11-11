@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerInteraction : Player
 {
     public static event Action OnFileFound;
+    
+    // allow player to use keyboard number input for inventory slot selection? 
     public void PlayerClicked(GameObject hit)
     {
         IClickable validClick = hit.transform.gameObject.GetComponent<IClickable>();
         if (hit.transform.gameObject.gameObject.GetComponent<CaseFile>() != null)
         {
             CaseFile caseFile = hit.transform.gameObject.GetComponent<CaseFile>();
-            CaseFileFound(caseFile);
+            caseFileFound(caseFile);
         }
         else if (hit.transform.gameObject.GetComponent<Focus>() != null)
         {
@@ -38,9 +40,9 @@ public class PlayerInteraction : Player
         }
     }
     
-    public void CaseFileFound(CaseFile caseFile)
+    private void caseFileFound(CaseFile caseFile)
     {
-        newFileFound();
+        NewFileFound();
         OnFileFound?.Invoke();
         Destroy(caseFile.gameObject);
         if (GetFilesFound() == 1)
@@ -48,5 +50,4 @@ public class PlayerInteraction : Player
             manager.NewGameState(manager.stateGamePlaying);
         }
     }
-
 }

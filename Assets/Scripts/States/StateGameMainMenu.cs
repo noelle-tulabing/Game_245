@@ -1,7 +1,7 @@
-using States;
-using UnityEngine;
-
-public class StateGameMainMenu : GameState
+namespace States
 {
-    public StateGameMainMenu(GameController manager) : base(manager) {}
+    public class StateGameMainMenu : GameState
+    {
+        public StateGameMainMenu(GameController manager) : base(manager) {}
+    }
 }

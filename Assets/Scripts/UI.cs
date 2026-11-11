@@ -1,3 +1,4 @@
+using States;
 using UnityEngine;
 
 public class UI : MonoBehaviour
@@ -10,13 +11,10 @@ public class UI : MonoBehaviour
     
     [SerializeField] private GameController gameController;
     
-    /*void Start()
+    void Start()
     {
-        CanvasGroupDisplayer.Show(ChangeViewButtons);
-        CanvasGroupDisplayer.Hide(ZoomViewButton);
-        CanvasGroupDisplayer.Hide(CaseFileButton);  
-        CanvasGroupDisplayer.Hide(PauseScreen);
-    }*/
+        CanvasGroupDisplayer.Hide(CaseFileMenu);
+    }
 
     public void zoomButton()
     {
@@ -26,7 +24,7 @@ public class UI : MonoBehaviour
 
     public void rotateButtons()
     {
-        if (gameController.GetCurrentState() == gameController.stateGamePlaying)
+        if (GameController.GetCurrentState() == gameController.stateGamePlaying)
         {
             CanvasGroupDisplayer.Show(ChangeViewButtons);
         }
@@ -35,7 +33,8 @@ public class UI : MonoBehaviour
 
     public void playingStateUI()
     {
-        CanvasGroupDisplayer.Show(PlayingStateUI);
+       CanvasGroupDisplayer.Hide(PauseScreen);
+       CanvasGroupDisplayer.Show(PlayingStateUI);
     }
 
     public void settingsButton()

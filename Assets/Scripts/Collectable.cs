@@ -8,6 +8,7 @@ public class Collectable : MonoBehaviour, IClickable
     [SerializeField] private CameraFocus collectableData;
     public static event Action OnKeyUsed;
     public static event Action OnScrewdriverUsed;
+    public static event Action OnUnscrewedScrew;
     public Sprite icon;
     public void Start()
     {
@@ -35,10 +36,6 @@ public class Collectable : MonoBehaviour, IClickable
                     Inventory.RemoveItemFromInventory(Inventory.checkSelected());
                     Destroy(item.gameObject);
                     Inventory.deselect();
-                    // observer thing for first case file 
-                        // clear key from inventory
-                        // ui case file for progression
-                        // open up room(?) 
                     return true;
                 }
                 break;
@@ -47,7 +44,12 @@ public class Collectable : MonoBehaviour, IClickable
                 {
                     OnScrewdriverUsed?.Invoke();
                     item.gameObject.SetActive(false);
-                    //once all screws off remove screwdriver from inventory?
+                    OnUnscrewedScrew?.Invoke();
+                    Debug.Log("player has unscrewed " + Player.GetScrewsUnscrewed() + " screws");
+                    if (Player.GetScrewsUnscrewed() == 16) // idk why 
+                    {
+                        Inventory.RemoveItemFromInventory(Inventory.checkSelected());
+                    }
                     return true;
                 }
                 break;
@@ -60,12 +62,12 @@ public class Collectable : MonoBehaviour, IClickable
     
     public void OnClick()
     {
-        if (cameraController.zoomedIn)
+        if (CameraController.zoomedIn)
         {
             cameraController.focusOnCollectable(collectableData);
         }
-        if (cameraController.getCurrentPosition() == collectableData.cameraViewPosition
-            && cameraController.getCurrentRotation() == collectableData.cameraViewRotation)
+        if (CameraController.getCurrentPosition() == collectableData.cameraViewPosition
+            && CameraController.getCurrentRotation() == collectableData.cameraViewRotation)
         {
             Inventory.AddItemToEmptyInventorySlot(this);
         }
