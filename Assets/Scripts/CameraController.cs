@@ -19,6 +19,7 @@ public class CameraController : MonoBehaviour
     
     [SerializeField] private GameController manager;
     public static event Action OnRoomZoomOut;
+    public static event Action OnTvFocus;
     
     void Start()
     {
@@ -99,6 +100,10 @@ public class CameraController : MonoBehaviour
     {
         MoveTo(collectableData.cameraViewPosition, 10f);
         RotateTo(collectableData.cameraViewRotation, 100f);
+        if (collectableData.name == "tv")
+        {
+            OnTvFocus?.Invoke();
+        }
     }
 
     // ---------- Tween helpers ----------

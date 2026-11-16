@@ -12,22 +12,21 @@ public class TvPuzzle : MonoBehaviour
 
     private bool isSolved;
     
-    public TextMeshPro clockDisplayText;
+    public TextMeshProUGUI clockDisplayText;
 
-    public static event Action onPuzzleSolved;
+    public static event Action OnPuzzleSolved;
 
     void Start()
     {
         isSolved = false;
         UpdateClockDisplay();
-        //CheckSolution();
     }
     
     public void AddHour()
     {
         if (isSolved) return;
         Debug.Log("Adding hour");
-        currentHour = (currentHour + 1) % 12;
+        currentHour = (currentHour + 1) % 13;
         if (currentHour < 0) currentHour += 12;
         UpdateClockDisplay();
         CheckSolution();
@@ -76,7 +75,7 @@ public class TvPuzzle : MonoBehaviour
         {
             isSolved = true;
             Debug.Log("Clock Puzzle Solved!");
-            onPuzzleSolved?.Invoke();
+            OnPuzzleSolved?.Invoke();
         }
     }
 

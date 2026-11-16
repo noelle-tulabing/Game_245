@@ -9,12 +9,12 @@ public class WindowIcons : MonoBehaviour
 
     void OnEnable()
     {
-        TvPuzzle.onPuzzleSolved += DisplayWindowIcons;
+        TvPuzzle.OnPuzzleSolved += DisplayWindowIcons;
     }
 
     void OnDisable()
     {
-        TvPuzzle.onPuzzleSolved -= DisplayWindowIcons;
+        TvPuzzle.OnPuzzleSolved -= DisplayWindowIcons;
     }
 
     private void DisplayWindowIcons()

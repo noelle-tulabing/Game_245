@@ -14,7 +14,6 @@ public class RoomZoom : MonoBehaviour, IClickable
     public void OnClick()
     {
         cameraController.zoomCameraIn();
-        //RoomCollider.gameObject.SetActive(false);
         RoomCollider.enabled = false;
     }
 
