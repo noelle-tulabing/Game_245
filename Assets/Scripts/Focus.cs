@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 public class Focus : MonoBehaviour, IClickable
 {
     [SerializeField] private CameraFocus cameraFocus;
     [SerializeField] private CameraController cameraController;
+
+    public static event Action OnTvFocus;
 
     void Start()
     {
@@ -15,6 +18,11 @@ public class Focus : MonoBehaviour, IClickable
         if (CameraController.zoomedIn)
         {
             cameraController.focusOnCollectable(cameraFocus);
+            if (cameraFocus.name == "tv")
+            {
+                Debug.Log("focusing on tv");
+                OnTvFocus?.Invoke();
+            }
         }
         else
         {

@@ -92,6 +92,7 @@ public class CameraController : MonoBehaviour
             MoveTo(room.ZoomPosition, ZoomSpeed);
             RotateTo(room.Rotation, RotateSpeed);
         }
+        UI.hideTVUI();
     }
 
     public void focusOnCollectable(CameraFocus collectableData)

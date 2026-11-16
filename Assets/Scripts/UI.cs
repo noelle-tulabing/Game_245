@@ -8,12 +8,24 @@ public class UI : MonoBehaviour
     public CanvasGroup PlayingStateUI;
     public CanvasGroup PauseScreen;
     public CanvasGroup CaseFileMenu;
+    public CanvasGroup TvPuzzle;
     
     [SerializeField] private GameController gameController;
     
     void Start()
     {
+        CanvasGroupDisplayer.Hide(TvPuzzle);
         CanvasGroupDisplayer.Hide(CaseFileMenu);
+    }
+
+    public void OnEnable()
+    {
+        Focus.OnTvFocus += showTVUI;
+    }
+
+    public void OnDisable()
+    {
+        Focus.OnTvFocus -= showTVUI;
     }
 
     public void zoomButton()
@@ -67,5 +79,16 @@ public class UI : MonoBehaviour
         CanvasGroupDisplayer.Hide(ZoomViewButton);
         CanvasGroupDisplayer.Hide(PlayingStateUI);
         CanvasGroupDisplayer.Hide(PauseScreen);
+    }
+    
+    //on tv focus
+    public void showTVUI()
+    {
+        CanvasGroupDisplayer.Show(TvPuzzle);
+    }
+
+    public void hideTVUI()
+    {
+        CanvasGroupDisplayer.Hide(TvPuzzle);
     }
 }

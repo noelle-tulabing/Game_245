@@ -27,11 +27,6 @@ public class Raycast : MonoBehaviour
                     player.PlayerClicked(hit.transform.gameObject);
                 }
             }
-            else
-            {
-                return;
-            }
-            
         }
     }
 }
