@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class InventorySlot : MonoBehaviour, IClickable
     public Sprite highlightSprite;
 
     [SerializeField] private Image itemIcon;
+    [SerializeField] private TextMeshPro itemLabel;
     
     void Start()
     {
@@ -24,6 +26,7 @@ public class InventorySlot : MonoBehaviour, IClickable
             itemIcon.enabled = false;
             if (firstChildComp != null) 
             {
+                
                 break;
             }
         }        

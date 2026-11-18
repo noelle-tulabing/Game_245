@@ -24,8 +24,9 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     {
-        //NewGameState(stateGameTutorial);
-        NewGameState(stateGamePlaying);
+        //NewGameState(stateGameMainMenu);
+        NewGameState(stateGameTutorial);
+        //NewGameState(stateGamePlaying);
     }
 
     private void Update()

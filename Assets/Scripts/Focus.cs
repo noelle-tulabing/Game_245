@@ -17,6 +17,10 @@ public class Focus : MonoBehaviour, IClickable
     {
         if (CameraController.zoomedIn)
         {
+            if (gameObject.GetComponent<Collectable>() == null)
+            {
+                   
+            }
             cameraController.focusOnCollectable(cameraFocus);
         }
         else

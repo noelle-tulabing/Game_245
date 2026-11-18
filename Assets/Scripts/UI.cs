@@ -9,6 +9,7 @@ public class UI : MonoBehaviour
     public CanvasGroup PauseScreen;
     public CanvasGroup CaseFileMenu;
     public CanvasGroup DigitalClock;
+    public GameObject ClockButtons;
     
     [SerializeField] private GameController gameController;
     
@@ -85,11 +86,17 @@ public class UI : MonoBehaviour
     
     public void showTVUI()
     {
+        ClockButtons.SetActive(true);
+        if (TvPuzzle.IsSolved())
+        {
+            ClockButtons.SetActive(false);
+        }
         CanvasGroupDisplayer.Show(DigitalClock);
     }
 
     public void hideTVUI()
     {
+        ClockButtons.SetActive(false);
         CanvasGroupDisplayer.Hide(DigitalClock);
     }
 }

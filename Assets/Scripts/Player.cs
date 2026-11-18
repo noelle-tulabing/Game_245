@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] public GameController manager;
-    [SerializeField] private Inventory _inventory;
+    [SerializeField] private Inventory inventory;
     private static int _filesFound;
     private static int _screwsUnscrewed;
     

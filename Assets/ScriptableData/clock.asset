@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64da87f0ca906413396106aa90ba3fe2, type: 3}
   m_Name: clock
   m_EditorClassIdentifier: Assembly-CSharp::CameraFocus
-  cameraViewPosition: {x: -8.13, y: 3.95, z: 0.55}
+  cameraViewPosition: {x: -8.7, y: 4.22, z: 0.58}
   cameraViewRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}

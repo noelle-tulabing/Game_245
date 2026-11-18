@@ -103,10 +103,6 @@ public class CameraController : MonoBehaviour
         if (collectableData.name == "tv")
         {
             OnTvFocus?.Invoke();
-            if (TvPuzzle.IsSolved())
-            {
-                // different display on tv when solved (message/hint to look out the window)
-            }
         }
     }
 
