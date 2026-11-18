@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64da87f0ca906413396106aa90ba3fe2, type: 3}
   m_Name: window
   m_EditorClassIdentifier: Assembly-CSharp::CameraFocus
-  cameraViewPosition: {x: 0, y: 0, z: 0}
-  cameraViewRotation: {x: 0, y: 0, z: 0, w: 0}
+  cameraViewPosition: {x: -7.64, y: 3.06, z: -1.64}
+  cameraViewRotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}

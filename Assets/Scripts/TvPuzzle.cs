@@ -10,7 +10,7 @@ public class TvPuzzle : MonoBehaviour
     public int currentHour = 0;
     public int currentMinute = 0;
 
-    private bool isSolved;
+    private static bool isSolved;
     
     public TextMeshProUGUI clockDisplayText;
 
@@ -21,7 +21,17 @@ public class TvPuzzle : MonoBehaviour
         isSolved = false;
         UpdateClockDisplay();
     }
-    
+
+    public void OnEnable()
+    {
+        CameraController.OnTvFocus += UpdateClockDisplay;
+    }
+
+    public void OnDisable()
+    {
+        CameraController.OnTvFocus -= UpdateClockDisplay;
+    }
+
     public void AddHour()
     {
         if (isSolved) return;
@@ -66,7 +76,15 @@ public class TvPuzzle : MonoBehaviour
     
     private void UpdateClockDisplay()
     {
-        clockDisplayText.text = $"{currentHour:00}:{currentMinute:00}";
+        if (isSolved)
+        {
+            clockDisplayText.text = "something has changed outside";
+            
+        }
+        else
+        {
+            clockDisplayText.text = $"{currentHour:00}:{currentMinute:00}";
+        }
     }
 
     private void CheckSolution()
@@ -81,6 +99,6 @@ public class TvPuzzle : MonoBehaviour
 
     public static bool IsSolved()
     {
-        return IsSolved();
+        return isSolved;
     }
 }

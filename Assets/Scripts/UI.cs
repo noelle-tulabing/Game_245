@@ -83,7 +83,6 @@ public class UI : MonoBehaviour
         CanvasGroupDisplayer.Hide(PauseScreen);
     }
     
-    //on tv focus
     public void showTVUI()
     {
         CanvasGroupDisplayer.Show(DigitalClock);

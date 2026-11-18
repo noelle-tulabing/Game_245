@@ -5,13 +5,16 @@ public class Curtain : MonoBehaviour, IClickable
 {
     public Mesh curtainOpen;
     public Mesh curtainClosed;
-    [SerializeField] private MeshFilter curtainMeshFilter;
-    [SerializeField] private GameObject windowIcons;
+    public MeshFilter curtainMeshFilter;
+    public GameObject windowIcons;
+    public Focus windowIconFocus;
+    
     void Start()
     {
         curtainMeshFilter = GetComponent<MeshFilter>();
         closeCurtain();
         windowIcons.SetActive(false);
+        windowIconFocus = windowIcons.GetComponent<Focus>();
     }
 
     public void OnEnable()
@@ -32,8 +35,10 @@ public class Curtain : MonoBehaviour, IClickable
         {
             if (TvPuzzle.IsSolved())
             {
-                // tv puzzle solved state? --> will have different interactions once puzzle solved
-                // curtain will remain open w/ icons showing --> on click will now focus on window icons
+                showWindowIcons();
+                openCurtain();
+                windowIconFocus.OnClick();
+                return;
             }
             if (curtainMeshFilter.sharedMesh == curtainClosed)
             {
@@ -43,8 +48,6 @@ public class Curtain : MonoBehaviour, IClickable
             {
                 closeCurtain();
             }
-            
-            
         }
     }
 
@@ -62,5 +65,4 @@ public class Curtain : MonoBehaviour, IClickable
     {
         windowIcons.SetActive(true);
     }
-    
 }
